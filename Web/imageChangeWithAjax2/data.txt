@@ -1,0 +1,7 @@
+[
+	{ title: '첫 번째 이미지', file: './images/a.jpg'},
+	{ title: '두 번째 이미지', file: './images/b.jpg'},
+	{ title: '세 번째 이미지', file: './images/c.jpg'},
+	{ title: '네 번째 이미지', file: './images/d.jpg'},
+	{ title: '다섯 번째 이미지', file: './images/e.jpg'}
+]
