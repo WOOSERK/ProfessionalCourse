@@ -29,7 +29,7 @@ $(document).ready(function()
 		$('<li>', { id: 'price', text: item['price'] }).appendTo(ul);
 	});
 			
-	$('.menuBox').click(function(e)
+	$('.menuBox').click(function()
 	{
 		$('.menuBox').css('height', '28px');
 		$(this).css('height', '78px');

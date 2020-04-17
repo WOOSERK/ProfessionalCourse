@@ -1,7 +1,12 @@
 [
-	{ title: 'Ã¹ ¹øÂ° ÀÌ¹ÌÁö', file: './images/a.jpg'},
-	{ title: 'µÎ ¹øÂ° ÀÌ¹ÌÁö', file: './images/b.jpg'},
-	{ title: '¼¼ ¹øÂ° ÀÌ¹ÌÁö', file: './images/c.jpg'},
-	{ title: '³× ¹øÂ° ÀÌ¹ÌÁö', file: './images/d.jpg'},
-	{ title: '´Ù¼¸ ¹øÂ° ÀÌ¹ÌÁö', file: './images/e.jpg'}
+	{ title: 'ì•„ì´ì–¸ ë§¨', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'ì œ 5ì›ì†Œ', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'ì´ˆì† 5cm', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'ë¶‰ì€ ë¼ì§€', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'ìŠˆí¼ë§¨', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'ìŠ¤íŒŒì´ë” ë§¨', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'í„í”„í”½ì…˜', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'ë” ë ˆë“œ', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: 'ë§¨ í”„ë¡¬ ì–´ìŠ¤', stime: '14:00', etime: '17:30', price: 12000},
+	{ title: '12ëª½í‚¤ì¦ˆ', stime: '14:00', etime: '17:30', price: 12000}
 ]
