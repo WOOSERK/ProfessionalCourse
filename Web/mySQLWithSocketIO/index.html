@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="/scripts/jquery-3.5.0.min.js"></script>
+<script src="/node_modules/socket.io-client/dist/socket.io.js"></script>
+<script src="/scripts/script.js"></script>
+</head>
+<body>
+<div class="memberList">
+	<ul>
+		<li>메일주소</li>
+		<li>별명</li>
+		<li>가입일자</li>
+		<li>상태</li>
+	</ul>
+</div>
+<div class="registerForm">
+	<table>
+		<tr>
+			<td>메일주소</td>
+			<td><input type="text" id="email"/></td>
+		</tr>
+		<tr>
+			<td>별명</td>
+			<td><input type="text" id="nick"/></td>
+		</tr>
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" id="password"/></td>
+		</tr>
+		<tr>
+			<td>비밀번호확인</td>
+			<td><input type="password" id="password"/></td>
+		</tr>
+	</table>
+	<div class="action">
+		<button id="btnRegister" type="button">회원가입</button>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+	<script src="script.js"></script>
+</head>
+<body>
+<div class="board">
+	<ul id="category">
+		<li>글 번호</li>
+		<li>제목</li>
+		<li>작성자</li>
+		<li>등록일자</li>
+	</ul>
+<!-- 	<ul>
+		<li>1</li>
+		<li>HI</li>
+		<li>우서크</li>
+		<li>2020-04-18</li>
+	</ul> -->
+</div>
+<div class="postForm">
+	<table>
+		<tr>
+		<td>작성자</td>
+		<td><input type="text" id="b_writer"></td>	
+		</tr>
+		<tr>
+		<td>비밀번호</td>
+		<td><input type="password" id="b_password"></td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td><input type="text" id="b_title"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td>
+			<textarea name="textarea" cols="30" rows="30" id="b_contents"></textarea>
+			</td>
+		</tr>
+	</table>
+</div>
+<div>
+	<button type="button" id="b_write">등록</button>
+</div>
+</body>
+</html>

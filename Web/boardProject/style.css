@@ -1,0 +1,66 @@
+body
+{
+	padding: 0;
+	margin: 0;
+	width: 800px;
+	text-align: center;
+}
+
+ul
+{
+	list-style: none;	
+	content: '';
+	display: block;
+	clear: both;
+}
+
+
+ul > li
+{
+	border: 2px dotted black;
+	float: left;
+	width: 100px;
+	background-color: #ffc6e2;
+}
+
+#category li
+{
+	background-color: #ff80c0;
+	font-weight: bold;
+}
+
+div
+{
+	margin-top:50px;
+	margin-left:50px;
+}
+
+ul > li:nth-child(2)
+{
+	width: 300px;
+}
+
+td
+{
+	border: 2px solid black;
+}
+
+tr
+{
+	width: 800px;
+}
+
+td
+{
+	width: 100px;
+}
+
+#b_title
+{
+	width: 600px;
+}
+
+#b_contents
+{
+	width: 500px;
+}
