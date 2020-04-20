@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="./scripts/jquery-3.5.0.min.js"></script>
+<script src="./scripts/script.js"></script>
+<link rel="stylesheet" href="./css/style.css"/>
+</head>
+<body>
+<form method="post" action="/Boards/write">
+	<table>
+		<tr>
+			<th>작성자</th>
+			<td><input type="text" name="writer"></td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td><input type="text" name="pass"></td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td><input type="text" name="title"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="text" name="content"></td>
+		</tr>
+	</table>
+	<div>
+		<button type="button" name="confirm">등록하기</button>
+		<button type="button" name="cancle">취소하기</button>
+	</div>
+</form>
+</body>
+</html>

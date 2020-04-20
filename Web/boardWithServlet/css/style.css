@@ -1,0 +1,41 @@
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	width: 604px;
+}
+
+.category
+{
+	border: 2px solid black;
+}
+
+ul
+{
+	list-style: none;
+}
+
+
+ul::before, ul::after
+{	
+	content: '';
+	display: block;
+	clear: both;
+}
+
+ul > li
+{
+	text-align: center;
+	width: 100px;
+	float: left;
+	outline: 1px dotted grey;
+}
+
+#content
+{
+	
+}
