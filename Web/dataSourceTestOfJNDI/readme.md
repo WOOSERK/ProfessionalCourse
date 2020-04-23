@@ -1,0 +1,1 @@
+DataSource 객체를 이용하여 Connection Pool에서 Connection을 획득하여 MariaDB에 있는 members 테이블과 연결해 로그인, 회원가입, 회원목록조회, 회원탈퇴 서비스를 제공하는 코드
