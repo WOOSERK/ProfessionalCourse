@@ -1,0 +1,1 @@
+MVC패턴에서 View는 JSP, Controller는 서블릿을 이용한 Front Controller 패턴을 이용하여 MySQL과 연동한 게시판의 글쓰기, 수정, 삭제, 목록 보기 기능을 구현한 코드
