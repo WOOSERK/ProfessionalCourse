@@ -1,0 +1,309 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.naming.NamingException;
+
+import kr.co.foreignlove.controller.DAOManager;
+import kr.co.foreignlove.controller.DBManager;
+import kr.co.foreignlove.service.boardmarket.BoardMarketListService;
+import kr.co.foreignlove.vo.BoardMarketVO;
+import kr.co.foreignlove.vo.BoardTypeVO;
+import kr.co.foreignlove.vo.BoardVO;
+import kr.co.foreignlove.vo.LowTypeVO;
+import kr.co.foreignlove.vo.MarketTypeVO;
+import kr.co.foreignlove.vo.MemberVO;
+import kr.co.foreignlove.vo.TradeWayVO;
+
+public class BoardMarketDAO implements BoardDAO
+{
+	public static final String NAME = "BoardMarket";
+	
+
+	public boolean insert(BoardVO board)
+	{
+		BoardMarketVO bm = new BoardMarketVO();
+		
+		String sql = "INSERT INTO boardMarket VALUES (default, ?, ?, default, null, default, ?, ?, ?, ?, ?, ?, ?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try
+		{
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bm.getB_title());
+			pstmt.setString(2, bm.getB_content());
+			pstmt.setString(3, bm.getMk_price());
+			pstmt.setString(4, bm.getMk_area());
+			pstmt.setString(5, bm.getBoardType().getBt_type());
+			pstmt.setString(6, bm.getLowType().getL_type());
+			pstmt.setString(7, bm.getMarketType().getMk_type());
+			pstmt.setString(8,  bm.getTradeWay().getTw_type());
+			pstmt.setInt(9, bm.getMember().getM_id());
+
+			result = (pstmt.executeUpdate() > 0);
+			int id = getLastInsertId(con);
+			board.setB_id(id);
+
+		} catch (NamingException e)
+		{
+			System.err.println(e.getMessage());
+		} catch (SQLException e)
+		{
+			System.err.println(e.getMessage());
+		} finally
+		{
+			DBManager.close(pstmt, con);
+		}
+		return result;
+	}
+	
+	public boolean delete(int b_id)
+	{
+		String sql = "DELETE FROM boardMarket WHERE mk_id='"+b_id+"'";
+		Connection con = null;
+		Statement stmt = null;
+		boolean result = false;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			result = (stmt.executeUpdate(sql) > 0);
+		} catch (Exception e)
+		{
+			System.err.println(e.getMessage());
+		} finally
+		{
+			DBManager.close(stmt, con);
+		}
+		return result;
+
+	}
+
+	public boolean update(BoardVO board)
+	{
+		
+		BoardMarketVO bm = new BoardMarketVO();
+		
+		String sql = "UPDATE boardMarket SET mk_title=? mk_content=? mk_price=? mk_area=? WHERE m_id=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		
+		try
+		{
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bm.getB_title());
+			pstmt.setString(2, bm.getB_content());
+			pstmt.setString(3, bm.getMk_price());
+			pstmt.setString(4, bm.getMk_area());
+			pstmt.setInt(5,bm.getMember().getM_id());
+			
+			result = (pstmt.executeUpdate() > 0);
+		} 
+		catch (NamingException e)
+		{
+			System.err.println(e.getMessage());
+		} 
+		catch (SQLException e)
+		{
+			System.err.println(e.getMessage());
+		} 
+		finally
+		{
+			DBManager.close(pstmt, con);
+		}
+		return result;
+	}
+
+
+	public int getLastInsertId(Connection con) throws SQLException
+	{
+		String sql = "SELECT last_insert_id()";
+		Statement stmt = null;
+		ResultSet rs = null;
+		int id = 0;
+
+		stmt = con.createStatement();
+		rs = stmt.executeQuery(sql);
+		if (rs.next())
+		{
+			id = rs.getInt(1);
+		}
+		DBManager.close(rs, stmt);
+		return id;
+	}
+
+	
+	public BoardMarketVO getBoard(int b_id)
+	{
+		
+		BoardMarketVO bm = null;
+		BoardTypeVO bt=new BoardTypeVO();
+	
+		String sql = "SELECT* FROM boardMarket JOIN boardType USING(bt_type) WHERE mk_id= "+b_id;
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next())
+			{
+				bm = new BoardMarketVO();
+				bm.setB_id(rs.getInt("mk_id"));
+				bm.setB_title(rs.getString("mk_title"));
+				bm.setB_content(rs.getString("mk_content"));
+				bm.setB_post(rs.getString("mk_post"));
+				bm.setB_delete(rs.getString("mk_delete"));
+				bm.setB_count(rs.getInt("mk_count"));
+				bm.setMk_price(rs.getString("mk_price"));
+				bm.setMk_area(rs.getString("mk_area"));
+				
+				bm.setBoardType((BoardTypeVO)DAOManager.getDAO(BoardTypeDAO.NAME));
+				bm.setLowType((LowTypeVO)DAOManager.getDAO(LowTypeDAO.NAME));
+				bm.setMarketType((MarketTypeVO)DAOManager.getDAO(MarketTypeDAO.NAME));
+				bm.setTradeWay((TradeWayVO)DAOManager.getDAO(TradeWayDAO.NAME));
+				bm.setMember((MemberVO)DAOManager.getDAO(MemberDAO.NAME));
+
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println(e.getMessage());
+		} 
+		finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+		return bm;
+
+	}
+	
+
+	public ArrayList<BoardMarketVO> getList(int page, int pageSize, String condition, String word)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT * FROM boardMarket ");
+		
+		switch(condition)
+		{
+		case BoardMarketListService.CONDITION_TITLE:
+			sb.append("WHERE p_title LIKE '%" + word + "%' ");
+			break;
+		case BoardMarketListService.CONDITION_CONTENT:
+			sb.append("WHERE p_content LIKE '%" + word + "%' ");
+			break;
+		default: 
+			sb.append("WHERE title LIKE '%" + word + "%' ");
+			sb.append("OR content LIKE '%" + word + "%' ");
+			break;
+		}
+		
+		int startPos = (page - 1) * pageSize;
+		sb.append("ORDER BY mk_id DESC ");
+		sb.append("LIMIT " + startPos + ", " + pageSize);
+		
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<BoardMarketVO> list = new ArrayList<>();
+		
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sb.toString());
+			
+			while(rs.next())
+			{
+				BoardMarketVO bm = new BoardMarketVO();
+				bm.setB_id(rs.getInt("mk_id"));
+				bm.setB_title(rs.getString("mk_title"));
+				bm.setB_content(rs.getString("mk_content"));
+				bm.setB_post(rs.getString("mk_post"));
+				bm.setB_delete(rs.getString("mk_delete"));
+				bm.setB_count(rs.getInt("mk_count"));
+				bm.setMk_price(rs.getString("mk_price"));
+				bm.setMk_area(rs.getString("mk_area"));
+				
+				bm.setBoardType((BoardTypeVO)DAOManager.getDAO(BoardTypeDAO.NAME));
+				bm.setLowType((LowTypeVO)DAOManager.getDAO(LowTypeDAO.NAME));
+				bm.setMarketType((MarketTypeVO)DAOManager.getDAO(MarketTypeDAO.NAME));
+				bm.setTradeWay((TradeWayVO)DAOManager.getDAO(TradeWayDAO.NAME));
+				bm.setMember((MemberVO)DAOManager.getDAO(MemberDAO.NAME));
+				
+				list.add(bm);
+			}
+		}
+		catch(NamingException e)
+		{
+			e.printStackTrace();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public int getTotalRecord(String condition, String word)
+	{
+		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM boardMarket");
+
+		switch (condition)
+		{
+		case BoardMarketListService.CONDITION_TITLE:
+			sb.append("WHERE title LIKE '%" + word + "%'");
+			break;
+		case BoardMarketListService.CONDITION_CONTENT:
+			sb.append("WHERE content LIKE '%" + word + "%'");
+			break;
+		default:
+			sb.append(" WHERE title LIKE '%" + word + "%'");
+			sb.append("OR content LIKE '%" + word + "%'");
+		}
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		int rowCount = 0;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sb.toString());
+			if (rs.next())
+			{
+				rowCount = rs.getInt(1);
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+
+		return rowCount;
+	}
+}

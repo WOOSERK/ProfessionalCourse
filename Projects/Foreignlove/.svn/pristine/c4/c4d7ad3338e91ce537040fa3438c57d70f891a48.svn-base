@@ -1,0 +1,60 @@
+$(document).ready(function() {
+	$('#btnRegister').click(function() {
+		location.href = '../pages/register.jsp';
+	});
+	
+	$('#btnLogin').click(function() {
+		$.ajax({
+			url: 'Login.do',
+			type: 'post',
+			data: {
+				m_email: $('input[name=m_email]').val(),
+				m_pass: $('input[name=m_pass]').val()
+			},
+			success: function(data) {
+				console.log(data);
+//				alert(data);
+				let obj = JSON.parse(data);
+				alert(obj.message);
+				if(obj.result == true){
+					location.href = '../index.jsp';
+				}
+				else{
+					location.href = 'login.jsp';
+				}
+				
+			}
+		});
+	});
+	
+	$('#btnLogout').click(function() {
+		$.ajax({
+			url: 'Logout.do',
+			type: 'post',
+			success: function(data) {
+				console.log(data);
+				let obj = JSON.parse(data);
+				alert("logout");
+				if(obj.errno == 0){
+					location.href = "../index.jsp";
+				}
+			}
+		});
+	});
+	
+	$('#btnChangeInfo').click(function() {
+//		$.ajax({
+//			url: 'update.jsp',
+//			type: 'post',
+//			success: function(data) {
+//				console.log(data);
+////				let obj = JSON.parse(data);
+////				alert("logout");
+////				if(obj.errno == 0){
+////					location.href = "index.jsp";
+////				}
+//			}
+//		});
+	});
+	
+});

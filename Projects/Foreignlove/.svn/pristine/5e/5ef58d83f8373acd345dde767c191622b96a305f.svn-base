@@ -1,0 +1,26 @@
+package kr.co.foreignlove.service.member;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.foreignlove.dao.MemberDAO;
+
+public class MemberDeleteService implements MemberService{
+	private MemberDAO dao = null;
+	
+	public MemberDeleteService() {
+		dao = MemberDAO.getInstance();
+	}
+
+	@Override
+	public void doService(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String m_email = (String) request.getAttribute("m_email");
+		
+		dao.delete(m_email);
+	}
+
+}

@@ -1,0 +1,45 @@
+package kr.co.foreignlove.controller.member;
+
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+
+import kr.co.foreignlove.controller.BackController;
+import kr.co.foreignlove.service.member.MemberInsertService;
+import kr.co.foreignlove.service.member.MemberService;
+import kr.co.foreignlove.vo.MemberVO;
+
+public class MemberRegisterController implements BackController {
+	private MemberService service;
+	
+	public MemberRegisterController() {
+		service = new MemberInsertService();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		JSONObject jObj = null;
+		PrintWriter out = null;
+		
+		try
+		{
+			service.doService(request, response);
+			MemberVO member = (MemberVO) request.getAttribute("member");
+			
+			jObj = new JSONObject();
+			jObj.put("result", true);
+			jObj.put("message", "success suceess");
+		}
+		catch(Exception e)
+		{
+			jObj = new JSONObject();
+			jObj.put("result", false);
+			jObj.put("message", "register fail");
+		}
+	}
+
+}

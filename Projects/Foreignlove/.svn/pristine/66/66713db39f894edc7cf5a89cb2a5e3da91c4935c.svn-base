@@ -1,0 +1,102 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.naming.NamingException;
+
+import kr.co.foreignlove.controller.DBManager;
+import kr.co.foreignlove.vo.SchoolVO;
+
+public class SchoolDAO
+{
+	public static final String NAME = "School";
+
+	public boolean delete()
+	{
+		boolean result = false;
+
+		return result;
+	}
+
+	public boolean update()
+	{
+		boolean result = false;
+
+		return result;
+	}
+
+	public SchoolVO find(String s_id)
+	{
+		SchoolVO school = new SchoolVO();
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "Select * from school where s_id like'" + s_id + "';";
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next())
+			{
+				school.setS_id(rs.getString("s_id"));
+				school.setS_name(rs.getString("s_name"));
+				school.setS_nation(rs.getString("s_nation"));
+				school.setS_state(rs.getString("s_state"));
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+
+		return school;
+	}
+
+	public SchoolVO searcForRegister(String s_name)
+	{
+		SchoolVO school = new SchoolVO();
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "Select * from school where s_name like'%" + s_name + "%';";
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next())
+			{
+				school.setS_id(rs.getString("s_id"));
+				school.setS_name(rs.getString("s_name"));
+				school.setS_nation(rs.getString("s_nation"));
+				school.setS_state(rs.getString("s_state"));
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+
+		return school;
+	}
+}

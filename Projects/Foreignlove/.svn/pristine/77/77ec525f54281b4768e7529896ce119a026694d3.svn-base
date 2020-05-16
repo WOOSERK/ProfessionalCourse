@@ -1,0 +1,150 @@
+var gPage = 1;
+
+
+$(document).ready(function() {
+	$('#emailCheck').attr("check", false);
+	$('#nickCheck').attr("check", false);
+	$('#popup').addClass('cantsee');
+	$('#popdown').addClass('cansee');
+	
+	$('#emailCheck').click(function() {
+		$.ajax({
+			url: 'FindEmail.do',
+			type: 'post',
+			data: {
+				m_email: $('input[name=m_email]').val()+'@',
+				ori_email: $('#ori_email').val()
+			},
+			success: function(data) {
+				console.log(data);
+				let obj = JSON.parse(data);
+				alert(obj.message);
+				if(obj.result == true){
+					$('#emailCheck').attr("check", true);
+				}
+				else{
+					$('#emailCheck').attr("check", false);
+				}
+				
+			}
+		});
+	});
+	
+	$('#nickCheck').click(function() {
+		$.ajax({
+			url: 'FindNick.do',
+			type: 'post',
+			data: {
+				m_nick: $('#m_nick').val()
+			},
+			success: function(data) {
+				console.log(data);
+				let obj = JSON.parse(data);
+				alert(obj.message);
+				if(obj.result == true){
+					$('#nickCheck').attr("check", true);
+				}
+				else{
+					$('#nickCheck').attr("check", false);
+				}
+				
+			}
+		});
+	});
+	
+	$('#schoolCheck').click(function() {
+		$('#popup').removeClass('cantsee');
+		$('#popdown').removeClass('cansee');
+		
+		$('#popup').addClass('cansee');
+		$('#popdown').addClass('cantsee');
+		
+	});
+	
+	$('#check').click(function() {		
+		$.ajax({
+			url:'SchoolList.do',
+			type:'post',
+			data:
+			{
+				m_school: $('#schoolTemp').val()
+			},
+			success: function(data)
+			{
+				var aray = data.schools;
+				$.each(aray, function (index, item) { // 객체를 전달받으면 index는 객체의 key(property)를 가리키고 
+					let tr = $('<tr/>').append('<td>'+item.s_name+'</td>')
+										.append('<td>'+item.s_nation+'</td>')
+										.append('<td>'+item.s_state+'</td>')
+										.append('<td>'+item.s_id+'</td>');
+					tr.click(function() {
+						console.log(this);
+						var td = $(this).children().eq(3).text();
+////////////////////////////////////////////////////////////////////////
+					});
+					tr.appendTo('table');
+				});
+			}
+		});		
+					
+	});
+
+	
+	$('#schoolDone').click(function() {
+		$('#popup').removeClass('cansee');
+		$('#popdown').removeClass('cantsee');
+		
+		$('#popup').addClass('cantsee');
+		$('#popdown').addClass('cansee');
+	});
+	
+	$('#registerBtn').click(function() {
+		$.ajax({
+			url: 'Register.do',
+			type: 'post',
+			data: {
+				m_email: $('#m_email').val(),
+				ori_email: $('#ori_email').val(),
+				m_pass: $('#pass').val(),
+				m_name: $('#m_name').val(),
+				m_phone: $('#m_phone').val(),
+				m_birth: $('#birth').val(),
+				m_nick: $('#m_nick').val(),
+				m_school: $('#school').val(),
+				m_startDate: $('#from').val(),
+				m_sex:$('input[name=m_sex]').val(),
+				emailCheck:$('#emailCheck').attr("check"),
+				nickCheck: $('#nickCheck').attr("check"),
+				addr1:$('[name=addr1]').val(),
+				addr2:$('[name=addr2]').val()
+			},
+			success: function(data) {
+				console.log(data);
+				alert(data);
+				let obj = JSON.parse(data);
+				alert(obj.message);
+				if(obj.result == 0){
+					location.href = 'login.jsp';
+				}
+				else if(obj.result == 0){
+//					location.href = 'login.jsp';
+				}
+				else{
+//					location.href = 'login.jsp';
+				}
+				
+			}
+		});
+	});
+});
+
+
+function openZipSearch() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
+			$('[name=addr1]').val(data.address);
+			$('[name=addr2]').val(data.buildingName);
+		}
+	}).open();
+}

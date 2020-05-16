@@ -1,0 +1,80 @@
+$.fn.marketWriteClick = function(){
+	this.one('click',function(){
+//		alert('글이 등록되었습니다.');
+		
+		$.ajax({
+			url:'BoardMarketInsert.do',
+			type:'post',
+			data: {
+				mk_title:$('#marketTitle').val(),
+				mk_type:$('#marketType').val(),
+				l_type:$('#lowType').val(),
+				tw_type:$('#tradeWay').val(),
+				mk_price:$('#price').val(),
+				mk_content: $('#marketContent').val(),
+				},
+			success:function(data){
+				alert(data.message);
+				if(data.result){
+//					$('.').setContent();
+//					$('.`#marketWriteCancel').trigger('click');
+					location.href='marketBoard.jsp';
+				}
+				else{
+					$('#marketWrite').marketWriteClick();
+				}
+			}
+		});
+	});
+}
+
+
+
+$.fn.marketWriteCancelClick = function(){
+	this.one('click',function(){
+		$(this).closest('.').hide(0,function(){
+			$(this).off()
+		})
+		alert('글 등록이 취소되었습니다.');
+		history.back();
+	});
+}
+
+
+$(document).ready(function()
+		{
+			$('#marketWrite').marketWriteClick();
+			$('#marketWriteCancel').marketWriteCancelClick();
+		});
+//$(document).ready(function()
+//{
+//	$('#marketWrite').click(function() {
+//		alert('글이 등록되었습니다.');
+//		
+//		$.ajax({
+//			url:'BoardMarketInsert.do',
+//			type:'post',
+//			data: {
+//				mk_title:$('#marketTitle').val(),
+//				mk_type:$('#marketType').val(),
+//				l_type:$('#lowType').val(),
+//				tw_type:$('#tradeWay').val(),
+//				mk_price:$('#price').val(),
+//				mk_content: $('#marketContent').val(),
+//				},
+//			success:function(data){
+//				alert(data.message);
+//				console.log(data);
+//				if(data.result){
+//					$('.').setContent();
+//					$('.`#marketWriteCancel').trigger('click');
+//					location.href='marketBoard.jsp';
+//				}
+//				else{
+//					$('#marketWrite').marketWriteClick();
+//				}
+//			}
+//		});
+//	});
+////	$('#marketCancel').marketCancelClick();
+//});

@@ -1,0 +1,20 @@
+package kr.co.foreignlove.dao;
+
+import kr.co.foreignlove.vo.PromotionTypeVO;
+
+public class PromotionTypeDAO
+{
+	public final static String NAME = "PromotionType";
+	
+	public boolean insert(PromotionTypeVO promotionType)
+	{
+		
+	}
+	
+	public boolean delete(String p_type)
+	{
+		
+	}
+	
+	public boolean update()
+}

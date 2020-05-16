@@ -1,0 +1,83 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.naming.NamingException;
+
+import kr.co.foreignlove.controller.DBManager;
+import kr.co.foreignlove.vo.TradeWayVO;
+
+public class TradeWayDAO {
+	public static final String NAME ="TradeWay";
+	private static TradeWayDAO dao = null;
+	
+	private TradeWayDAO() {
+		
+	}
+	
+	public static TradeWayDAO getInstance() {
+		if(dao==null) {
+			dao=new TradeWayDAO();
+		}
+		return dao;
+	}
+	
+	public boolean insert (TradeWayVO tw_type) {
+		boolean result=false;
+		Connection con = null;
+		Statement stmt = null;
+		
+		return result;
+	}
+	
+	public boolean delete() {
+		boolean result = false;
+		
+		return result;
+	}
+	
+	public boolean update() {
+		boolean result = false;
+		
+		return result;
+	}
+	
+	public TradeWayVO find(String tw_type) {
+		TradeWayVO twType = new TradeWayVO();
+		
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con=DBManager.getConnection();
+			stmt=con.createStatement();
+			String sql ="SELECT* FROM tradeWay where tw_type like'"+tw_type+"';";
+			rs=stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				twType.setTw_type(rs.getString("tw_type"));
+				twType.setTw_typeName(rs.getString("tw_typeName"));
+			}
+		}
+		catch (NamingException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(rs,stmt,con);
+		}	
+		
+		return twType;
+	}
+	
+	public ArrayList<TradeWayVO>getList(){
+		ArrayList<TradeWayVO>twType = new ArrayList<TradeWayVO>();
+		
+		return twType;
+	}
+}

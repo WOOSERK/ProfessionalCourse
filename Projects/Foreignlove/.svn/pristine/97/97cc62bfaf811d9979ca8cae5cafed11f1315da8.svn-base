@@ -1,0 +1,6 @@
+package kr.co.foreignlove.controller.tag;
+
+public class TagListController
+{
+
+}

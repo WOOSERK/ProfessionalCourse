@@ -1,0 +1,136 @@
+package kr.co.foreignlove.controller.member;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class MemberLogoutController
+ */
+@WebServlet("/MemberLogoutController")
+public class MemberLogoutController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MemberLogoutController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+	/*package kr.co.foreignlove.controller.member;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+//import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+
+import kr.co.foreignlove.exception.member.MemberException;
+import kr.co.foreignlove.service.member.MemberService;
+
+//@WebServlet("/login")
+public class MemberLoginController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private HashMap<String, MemberService> services = new HashMap<String, MemberService>();
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		Enumeration<String> keys = config.getInitParameterNames();
+		
+		while (keys.hasMoreElements()) {
+			String string = (String) keys.nextElement();
+			String classPath = config.getInitParameter(string);
+			System.out.println("string : "+string);
+			System.out.println("classpath"+classPath);
+			try {
+				Class c = Class.forName(classPath);
+				services.put(string, (MemberService) c.newInstance());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String contextPath = request.getServletContext().getContextPath();
+//		System.out.println(contextPath);
+		String uri = request.getRequestURI();
+		System.out.println(uri+1);  
+		uri = uri.substring(uri.indexOf("/",1));
+//		System.out.println(uri.substring(uri.indexOf("/",1)));
+		System.out.println(uri);
+
+		
+		JSONObject jObj = new JSONObject();
+		
+		MemberService service = services.get(uri);
+		
+		if(uri.equals("/pages/Login.do")) {
+			try {
+				service.doService(request, response);
+				jObj.put("errno", 0);
+				jObj.put("message", "login success");
+			} catch (ServletException | IOException | MemberException e) {
+				jObj.put("errno", 1);
+				jObj.put("message", "login fail");
+				e.printStackTrace();
+			}
+//			response.setContentType("application/json");
+			PrintWriter out = response.getWriter();
+			out.println(jObj.toJSONString());
+		}
+		else if(uri.equals("Logout.do")) {
+			try {
+				service.doService(request, response);
+				jObj.put("errno", 0);
+				jObj.put("message", "logout success");
+			} catch (ServletException | IOException |MemberException e) {
+				jObj.put("errno", 1);
+				jObj.put("message", "logout fail");
+				e.printStackTrace();
+			}
+//			response.setContentType("application/json");
+			PrintWriter out = response.getWriter();
+			out.println(jObj.toJSONString());
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		doGet(request, response);
+	}
+
+}
+*/
+
+}

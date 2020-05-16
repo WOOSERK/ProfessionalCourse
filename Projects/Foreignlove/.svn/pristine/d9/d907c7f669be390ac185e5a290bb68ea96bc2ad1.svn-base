@@ -1,0 +1,281 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.naming.NamingException;
+
+//import kr.co.foreignlove.controller.DAOManager;
+import kr.co.foreignlove.controller.DBManager;
+//import kr.co.foreignlove.vo.MemberTypeVO;
+import kr.co.foreignlove.vo.MemberVO;
+//import kr.co.foreignlove.vo.SchoolVO;
+
+public class MemberDAO
+{
+	public static final String NAME = "Member";
+
+	public boolean insert(MemberVO member)
+	{
+		boolean result = false;
+		Connection con = null;
+		Statement stmt = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "INSERT INTO members(m_email, m_name, m_pass, m_phone, m_birth, m_photo, m_nick, m_sex, m_regDate, m_remDate, m_startDate, m_addr, s_id, m_type)"
+					+ " VALUES('" + member.getM_email() + "','" + member.getM_name() + "','" + member.getM_pass()
+					+ "','" + member.getM_phone() + "'," + member.getM_birth() + ",'" + member.getM_photo() + "','"
+					+ member.getM_nick() + "','" + member.getM_sex() + "'," + member.getM_regDate() + ","
+					+ member.getM_startDate() + ",'" + member.getM_addr() + "','" + (member.getS_id()).getS_id() + "','"
+					+ (member.getM_type()).getM_type() + "');";
+
+			if (stmt.executeUpdate(sql) > 0)
+			{
+				result = true;
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(stmt, con);
+		}
+		return result;
+	}
+
+	public boolean delete(String m_email)
+	{
+		boolean result = false;
+
+		Connection con = null;
+		Statement stmt = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "Delete from members where m_email =" + m_email + ";";
+			if (stmt.executeUpdate(sql) > 0)
+			{
+				result = true;
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(stmt, con);
+		}
+		return result;
+	}
+
+	public boolean update(MemberVO member)
+	{
+		boolean result = false;
+
+		Connection con = null;
+		Statement stmt = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "UPDATE members SET m_pass='" + member.getM_pass() + "', m_photo='" + member.getM_photo()
+					+ "', m_startDate='" + member.getM_startDate() + "', m_addr='" + member.getM_addr()
+					+ "' where m_id = '" + member.getM_id() + "' and email like '" + member.getM_email() + "';";
+
+			if (stmt.executeUpdate(sql) > 0)
+			{
+				result = true;
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(stmt, con);
+		}
+		return result;
+	}
+
+	public MemberVO findMember(String m_id)
+	{
+		MemberVO member = null;
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "Select * from members where m_id like '" + m_id + "';";
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next())
+			{
+				member = new MemberVO();
+				member.setM_addr(rs.getString("m_addr"));
+				member.setM_birth(rs.getString("m_birth"));
+				member.setM_email(rs.getString("m_email"));
+				member.setM_id(rs.getInt("m_id"));
+				member.setM_name(rs.getString("m_name"));
+				member.setM_nick(rs.getString("m_nick"));
+				member.setM_pass(rs.getString("m_pass"));
+				member.setM_phone(rs.getString("m_phone"));
+				member.setM_regDate(rs.getString("m_regDate"));
+				member.setM_remDate(rs.getString("m_remDate"));
+				member.setM_sex(rs.getString("m_sex"));
+				member.setM_startDate(rs.getString("m_startDate"));
+
+				String s_id = rs.getString("s_id");
+				String m_type = rs.getString("m_type");
+
+//				MemberTypeDAO tempDAO = (MemberTypeDAO) DAOManager.getDAO("memberTypeDAO");
+				MemberTypeDAO mDao = MemberTypeDAO.getInstance();
+				member.setM_type(mDao.find(m_type));
+
+//				SchoolDAO sDao = (SchoolDAO) DAOManager.getDAO("schoolDAO");
+				SchoolDAO sDao = SchoolDAO.getInstance();
+				member.setS_id(sDao.find(s_id));
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+		return member;
+	}
+
+	public MemberVO findMember(String email, String pass)
+	{
+		MemberVO member = null;
+		String sql = "Select * from members where m_email like ? and m_pass = password(?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, pass);
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+			{
+				member = new MemberVO();
+				member.setM_addr(rs.getString("m_addr"));
+				member.setM_birth(rs.getString("m_birth"));
+				member.setM_email(rs.getString("m_email"));
+				member.setM_id(rs.getInt("m_id"));
+				member.setM_name(rs.getString("m_name"));
+				member.setM_nick(rs.getString("m_nick"));
+				member.setM_pass(rs.getString("m_pass"));
+				member.setM_phone(rs.getString("m_phone"));
+				member.setM_regDate(rs.getString("m_regDate"));
+				member.setM_remDate(rs.getString("m_remDate"));
+				member.setM_sex(rs.getString("m_sex"));
+				member.setM_startDate(rs.getString("m_startDate"));
+
+				String s_id = rs.getString("s_id");
+				String m_type = rs.getString("m_type");
+
+//				MemberTypeDAO tempDAO = (MemberTypeDAO) DAOManager.getDAO("memberTypeDAO");
+				MemberTypeDAO mDao = MemberTypeDAO.getInstance();
+				member.setM_type(mDao.find(m_type));
+
+//				SchoolDAO sDao = (SchoolDAO) DAOManager.getDAO("schoolDAO");
+				SchoolDAO sDao = SchoolDAO.getInstance();
+				member.setS_id(sDao.find(s_id));
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, pstmt, con);
+		}
+		return member;
+	}
+
+	public MemberVO find(String email)
+	{
+		MemberVO member = null;
+		String sql = "Select * from members where m_email like ? ;";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+			{
+				member = new MemberVO();
+				member.setM_addr(rs.getString("m_addr"));
+				member.setM_birth(rs.getString("m_birth"));
+				member.setM_email(rs.getString("m_email"));
+				member.setM_id(rs.getInt("m_id"));
+				member.setM_name(rs.getString("m_name"));
+				member.setM_nick(rs.getString("m_nick"));
+				member.setM_pass(rs.getString("m_pass"));
+				member.setM_phone(rs.getString("m_phone"));
+				member.setM_regDate(rs.getString("m_regDate"));
+				member.setM_remDate(rs.getString("m_remDate"));
+				member.setM_sex(rs.getString("m_sex"));
+				member.setM_startDate(rs.getString("m_startDate"));
+
+				String s_id = rs.getString("s_id");
+				String m_type = rs.getString("m_type");
+
+//				MemberTypeDAO tempDAO = (MemberTypeDAO) DAOManager.getDAO("memberTypeDAO");
+				MemberTypeDAO mDao = MemberTypeDAO.getInstance();
+				member.setM_type(mDao.find(m_type));
+
+//				SchoolDAO sDao = (SchoolDAO) DAOManager.getDAO("schoolDAO");
+				SchoolDAO sDao = SchoolDAO.getInstance();
+				member.setS_id(sDao.find(s_id));
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, pstmt, con);
+		}
+		return member;
+	}
+}

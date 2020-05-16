@@ -1,0 +1,22 @@
+$.fn.btnDeleteClick = function(){
+	this.one('click',function(){
+		alert('취소버튼이 클릭되었습니다.');
+	
+		$.ajax({
+			url:'BoardFreeDelete.do',
+			type: 'post',
+			data:{
+				
+			}
+		});
+	
+	
+	
+	});
+}
+
+
+
+$(document).ready(function(){
+	$('#main').setContent();
+});

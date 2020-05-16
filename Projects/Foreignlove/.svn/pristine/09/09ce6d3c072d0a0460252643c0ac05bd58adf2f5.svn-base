@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="kr.co.foreignlove.controller.DAOManager" %>
+<%@ page import="kr.co.foreignlove.vo.TagVO" %>
+<%@ page import="kr.co.foreignlove.dao.TagDAO" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%ArrayList<TagVO> tags = ((TagDAO)DAOManager.getDAO(TagDAO.NAME)).getList("");
+for(TagVO tag : tags)
+{%>
+	<%=tag %>
+<%} %>
+</body>
+</html>

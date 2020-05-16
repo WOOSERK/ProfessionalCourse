@@ -1,0 +1,20 @@
+$.fn.btnWriteClick = function(){
+	//fn(전역함수)을 사용하면 this를 사용할수있어서 즉 누르는 자신주최를 가져올수있기때문.
+	this.one('click',function(){
+		alert('등록버튼이 클릭되었습니다.');
+		
+		$.ajax({
+			url:'BoardFreeInsert.do',
+			type:'get',
+			success:function()
+			{
+				
+			}
+		});
+	});
+}
+
+$(document).ready(function()
+{
+	$('#btnWriteClick').btnWriteClick();
+});

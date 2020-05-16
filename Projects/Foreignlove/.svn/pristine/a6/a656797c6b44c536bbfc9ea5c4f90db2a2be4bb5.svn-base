@@ -1,0 +1,11 @@
+TagInsert.do=kr.co.foreignlove.controller.tag.TagInsertController
+TagDelete.do=kr.co.foreignlove.controller.tag.TagDeleteController
+TagView.do=kr.co.foreignlove.controller.tag.TagViewController
+TagList.do=kr.co.foreignlove.controller.tag.TagListController
+BoardMarketDelete.do=kr.co.foreignlove.controller.BoardMarketDeleteController
+BoardMarketUpdate.do=kr.co.foreignlove.controller.BoardMarketUpdateController
+BoardMarketView.do=kr.co.foreignlove.controller.BoardMarketViewController
+BoardMarketInsert.do=kr.co.foreignlove.controller.BoardMarketInsertController
+BoardMarketList.do=kr.co.foreignlove.controller.BoardMarketListController
+pages/Login.do=kr.co.foreignlove.controller.member.MemberLoginController
+BoardFreeInsert.do=kr.co.foreignlove.controller.boardFree.BoardFreeInsertController

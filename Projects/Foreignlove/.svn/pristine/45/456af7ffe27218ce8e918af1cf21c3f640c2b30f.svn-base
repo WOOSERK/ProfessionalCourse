@@ -1,0 +1,69 @@
+* {
+  font-size: 9pt;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.boardList>ul, .memberList>ul>li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.boardList>ul {
+  width: 500px;
+  margin: 0 auto;
+  border-top: 1px dashed #000000;
+}
+
+.boardList>ul:first-child {
+  border-top: 1px solid #000000;
+  background-color: #ececec;
+  font-weight: bold;
+}
+
+.boardList>ul:last-child {
+  border-bottom: 1px solid #000000;
+}
+
+.boardList>ul::before, .boardList>ul::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.boardList>ul>li {
+  width: 100px;
+  height: 25px;
+  line-height: 25px;
+  float: left;
+  text-align: center;
+}
+
+.boardList>ul>li:nth-child(1) {
+  width: 160px;
+}
+
+.boardList>ul>li:nth-child(2) {
+  width: 80px;
+}
+
+.boardList>ul>li:nth-child(3) {
+  width: 160px;
+}
+
+.boardList>ul>li:nth-child(4) {
+  width: 80px;
+}
+
+.boardForm > table{
+  padding: 0;
+  margin: 0 auto;
+}
+
+.boardForm > div{
+  text-align: center;
+}

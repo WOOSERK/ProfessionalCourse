@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+
+<head>
+  <title>Free</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <link rel="stylesheet" href="../css/mycss.css">
+</head>
+
+<body class="container-fluid" style="margin:0; padding:0;">
+  <div class="" style="margin:0;padding:0;width:100%;background-color:#F8B195;height:50px;">
+    <!--NAVGATION-->
+    <nav class="navbar navbar-dark" style="background-color:#F8B195;float:left;">
+      <!--logo-->
+      <a href="../index.html" class="">
+        <img src="../images/logo.png" alt="nonic" width="30px"></a>
+
+      <!--menubar-->
+      <ul class="" style="margin:0;padding:0;">
+        <!--home-->
+        <li class="active" style="float:left;display:inline-block;margin:0;padding:0;">
+          <a href="index.html" class="nav-link" style="color:white;">HOME</a>
+        </li>
+        <!--market-->
+        <li class="dropdown" style="float:left;display:inline-block;margin:0;padding:0">
+          <a href="pages/marketBoard.html" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:white;">MARKET</a>
+          <div class="dropdown-menu">
+            <a href="pages/marketBoard.html" class="dropdown-item">ALL</a>
+            <a href="#" class="dropdown-item">BUY</a>
+            <a href="#" class="dropdown-item">FIND</a>
+          </div>
+        </li>
+        <!--free-->
+        <li class="" style="float:left;display:inline-block;margin:0;padding:0">
+          <a href="pages/freeBoard.html" class="nav-link" style="color:white;">FREE</a>
+        </li>
+        <!--DM-->
+        <li class="" style="float:left;display:inline-block;margin:0;padding:0">
+          <a href="#" class="nav-link" style="color:white;">쪽지</a>
+        </li>
+        <!--space-->
+        <li class="" style="float:left;display:inline-block;margin:0;padding:0">
+          <a href="#" class="nav-link" style="color:white;"> </a>
+        </li>
+        <li class="" style="float:left;display:inline-block;margin:0;padding:0">
+          <form class="form-inline" action="#" style="margin:0;padding:0;width:270px;">
+            <input type="text" name="" value="" class="form-control" placeholder="search" style="margin-right:3px;width:200px;">
+            <button type="submit" name="searchbutton" class="btn btn-outline-light" style="backgroun-color:white;width:50px;">GO</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!--menu end-->
+  <!---------------------------------------------------------------------------------------------------------------------------------->
+  <!-- contents box -->
+  <!--top-->
+  <div class="" style="width:100%;">
+    <table>
+      <tr style="width:100%;vertical-align: top;">
+        <!--left-->
+        <td style="width:20%;margin-top:0px;padding:0;vertical-align: top;">
+          <div class="" style="padding:0;margin:0 10px;">
+            <!--cate name-->
+            <div class="well" style="margin-top:10px;width:100%;text-align:center">
+              <h5>장터게시판</h5>
+            </div>
+            <!--PROFILE-->
+            <div class="card" style="margin-top:12px;">
+              <img src="../images/sample1.jpg" alt="nopic" class="card-img-top" style="">
+              <div class="card-body">
+                <h5 class="card-title">창새로이</h5>
+                <p class="card-text">등급 : 태양신</p>
+                <a href="#" class="card-link">마이페이지</a>
+              </div>
+            </div>
+
+            <!--buttons-->
+            <div class="">
+              <button type="button" name="button" class="btn" style="width:100%; margin-top:5px; color:white; background-color:#F8B195;">글쓰기</button>
+              <button type="button" name="button" class="btn" style="width:100%; margin-top:5px; color:white; background-color:#F8B195;">쪽지함
+                <span class="badge badge-pill badge-danger">18</span>
+              </button>
+            </div>
+
+            <!--select-->
+            <div class="" style="margin-right:2%;width:77%;margin-top:5px;">
+              <select class="form-control" name="">
+                <option value="all">전체</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+              </select>
+            </div>
+
+            <!--search in this cate-->
+            <div class="">
+              <form class="form-inline" action="#" style="margin-top:5px;">
+                <input type="text" name="" value="" class="form-control" placeholder="search" style="margin-right:2%;width:77%;">
+                <button type="submit" name="searchbutton" class="btn" style="background-color:#F8B195;color:white;width:21%;">GO</button>
+              </form>
+            </div>
+          </div>
+        </td>
+        <!--right-->
+        <td style="width:70%">
+          <div class="" style="padding:12px 12px 0 0;margin:0;">
+            <img src="../images/all.png" alt="" height="20px" style="margin-bottom:3px;">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>글번호</th>
+                  <th>글제목</th>
+                  <th>작성자</th>
+                  <th>작성일자</th>
+                  <th>좋아요</th>
+                  <th>조회수</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                </tr>
+                <tr>
+                  <td>Mary</td>
+                  <td>Moe</td>
+                  <td>mary@example.com</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                </tr>
+                <tr>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                </tr>
+                <tr>
+                  <td>Mary</td>
+                  <td>Moe</td>
+                  <td>mary@example.com</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+
+</html>

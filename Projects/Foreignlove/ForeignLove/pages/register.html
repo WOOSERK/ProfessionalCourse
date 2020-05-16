@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>회원가입</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- jquery UI CDN -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <!-- 언어 별 CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/i18n/jquery.ui.datepicker-ko.min.js"></script>
+    <!-- Date 라이브러리 -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript" src="../js/cal.js"></script>
+    
+
+    <style media="screen">
+      html, body{font-size: 14px;font-family: nanumgothic !important;}
+      div { text-align: center;
+        margin-left: auto;
+        margin-right: auto;}
+        button:hover{cursor: pointer;}
+    </style>
+  </head>
+  <body>
+    <!--popup-->
+    <div class="container">
+
+    </div>
+    <div class="container-fluid" style="width:400px;">
+      <div class="container-fluid">
+        <!--main-->
+        <div class="container-fluid" style="align:center; margin: 30px 0px 20px 0;">
+          <img src="../images/logo.png" alt="nopic" style="width:50px;">
+        </div>
+        <div class="container-fluid" style="height:50px">
+          <img src="../images/signup.png" alt="nopic" style="width:100px">
+        </div>
+        <!--forms-->
+        <div class="container-fluid">
+          <div class="container-fluid" style="padding:0;margin:0;">
+            <input type="text" name="" value="" class="form-control" placeholder="이메일" style="margin:2px 0; width:46%; display:inline;">
+            @ <select class="form-control" name="" style="width:46%; display:inline;">
+              <option>naver.com</option>
+  	          <option>gmail.com</option>
+          	  <option>daum.net</option>
+          	  <option>4</option>
+          	  <option>5</option>
+            </select>
+
+            <button type="button" name="button" class="btn" style="background-color:#F67280; color:white; margin:2px">이메일 중복확인</button>
+          </div>
+          <input type="password" name="" value="" class="form-control" placeholder="비밀번호" style="margin:2px 0;">
+          <input type="password" name="" value="" class="form-control" placeholder="비밀번호 확인" style="margin:2px 0;">
+          <input type="text" name="" value="" class="form-control" placeholder="본명" style="margin:2px 0;">
+          <input type="text" name="" value="" class="form-control" placeholder="전화번호" style="margin:2px 0;">
+          <!-- <input type="text" name="" value="" class="form-control" placeholder="생년월일(8자)" style="margin:2px 0;"> -->
+
+          <input type="text" id="birth" class="form-control" placeholder="생년월일" style="width:93%; display:inline; margin:0; margin-right:3px">
+          <input type="text" name="" value="" class="form-control" placeholder="별명" style="margin:2px 0;">
+          <button type="button" name="button" class="btn" style="background-color:#C06C84; color:white; margin:2px">닉네임 중복확인</button>
+          <div class="container-fluid" style="margin:0px;padding:0px;">
+            <input type="text" name="" value="" class="form-control" placeholder="학교" style="margin:2px 0;width:65%;display:inline;">
+            <button type="button" name="button" style="width:33%;background-color:#6C5B7B;color:white;margin:2px 0;display:inline;" class="btn">학교찾기</button>
+          </div>
+
+          <input type="text" name="" value="" class="form-control" placeholder="국가" style="margin:2px 0;" disabled>
+          <input type="text" name="" value="" class="form-control" placeholder="세부지역" style="margin:2px 0;" disabled>
+          교환기간
+          <div class="container-fluid" style="padding:0;margin:0;">
+            <input type="text" id="from" class="form-control" placeholder="시작일" style="width:39%; display:inline; margin:3px;"> ~
+            <input type="text" class="form-control" id="to" placeholder="종료일" style="width:40%; display:inline; margin:3px;">
+            <input type="hidden" id="birthday" class="form-control" size="30">
+            <input type="hidden" id="alternateFrom" class="form-control" size="30">
+            <input type="hidden" class="form-control" id="alternateTo" size="30">
+          </div>
+          <div class="">
+            <br/>
+            본 사항에 동의하십니까? <input type="checkbox" name="" value="">
+          </div>
+          <!--button-->
+          <div class="container">
+            <button type="button" name="button" class="btn" style="width:150px; margin:20px 0; background-color:#355C7D;color:white;">회원가입 완료</button>
+          </div>
+          <div class="container">
+            <p>본 페이지는 회원가입 페이지 입니다.</p>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>

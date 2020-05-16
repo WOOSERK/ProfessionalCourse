@@ -1,0 +1,44 @@
+$.fn.btnWriteClick = function(){
+	//fn(전역함수)을 사용하면 this를 사용할수있어서 즉 누르는 자신주최를 가져올수있기때문.
+	this.one('click',function(){
+		alert('등록버튼이 클릭되었습니다.');
+		
+		$.ajax({
+			url:'BoardFreeInsert.do',
+			type:'post',
+			data:{
+				title: $('#title').val(),
+				content: $('#content').val()
+			},
+			success:function(data)
+			{
+				alert(data.message);
+				console.log(data);
+				if(data.result){
+					$('#btnCancel').trigger('click');
+					location.href= 'freeBoard.jsp ';
+				}
+				else{
+					$('#btnWrite').btnWriteClick();
+				}
+			}
+		});
+	});
+}
+
+$.fn.btnCancelClick = function(){
+	this.one('click',function(){
+		alert('취소버튼이 클릭되었습니다.');
+		history.back();
+	});
+}
+
+//member check한 후 login이 안되어있으면 바로 login페이지로 가도록해야함.
+
+
+$(document).ready(function()
+{
+	
+	$('#btnWrite').btnWriteClick();
+	$('#btnCancel').btnCancelClick();
+});

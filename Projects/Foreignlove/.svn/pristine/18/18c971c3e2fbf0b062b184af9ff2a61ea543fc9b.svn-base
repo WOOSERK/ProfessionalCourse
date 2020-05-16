@@ -1,0 +1,72 @@
+package kr.co.foreignlove.service.board.boardmarket;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.foreignlove.dao.BoardMarketDAO;
+import kr.co.foreignlove.service.Service;
+import kr.co.foreignlove.vo.BoardMarketVO;
+import kr.co.foreignlove.vo.MemberVO;
+
+public class BoardMarketInsertService implements Service{
+	
+	BoardMarketDAO dao;
+	
+	public BoardMarketInsertService() {
+		dao=new BoardMarketDAO();
+	}
+	
+	public void doService(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		
+	    String m_nick = request.getParameter("m_nick");
+		String mk_title=request.getParameter("mk_title");
+		String mk_type=request.getParameter("mk_type");
+		String l_type=request.getParameter("l_type");
+		String attached=request.getParameter("attached");
+		String tw_type=request.getParameter("tw_type");
+		String mk_price=request.getParameter("mk_price");
+		String mk_content=request.getParameter("mk_content");
+		
+		if(m_nick==null || m_nick.trim().equals("")) {
+			throw new Exception("게시자 이름이 입력되지 않았습니다.");
+		}
+		
+		if(mk_title==null||mk_title.trim().equals("")) {
+			throw new Exception("상품명을 포함한 제목을 입력해주세요.");
+		}
+		
+		if(mk_price==null||mk_price.trim().equals("")) {
+			throw new Exception ("상품가격을 입력해주세요.");
+		}
+		
+		if(mk_content==null||mk_content.trim().equals("")) {
+			throw new Exception ("상품 설명을 반드시 기재해주세요.");
+		}
+		if(attached==null||attached.trim().equals("")) {
+			throw new Exception("상품 사진첨부는 필수사항입니다.");
+		}
+		if(!(attached.endsWith("jpg")||attached.endsWith("img")||attached.endsWith("png"))) {
+			throw new Exception("해당 파일은 이미지 파일이 아닙니다. 확장자명이 img,png,jpg만 가능합니다.");
+		}
+		 BoardMarketVO bm = new BoardMarketVO();
+		 
+		 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 java.util.Calendar calendar = java.util.Calendar.getInstance();
+		 String now = sdf.format(calendar.getTime());
+		 
+		 
+		 bm.setMk_title(mk_title);
+		 bm.setMk_type(mk_type);
+		 bm.setMk_price(mk_price);
+		 bm.setMk_content(mk_content);
+		 bm.setMk_post(now);
+		
+		 if(dao.insert(bm)) {
+			 
+		 }
+		 
+		 
+	}
+		
+
+}

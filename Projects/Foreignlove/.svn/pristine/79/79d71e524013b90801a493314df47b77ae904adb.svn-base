@@ -1,0 +1,56 @@
+package kr.co.foreignlove.service.member;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.co.foreignlove.dao.MemberDAO;
+import kr.co.foreignlove.dao.MemberTypeDAO;
+import kr.co.foreignlove.dao.SchoolDAO;
+import kr.co.foreignlove.vo.MemberTypeVO;
+import kr.co.foreignlove.vo.MemberVO;
+import kr.co.foreignlove.vo.SchoolVO;
+
+public class MemberUpdateService implements MemberService{
+
+	private MemberDAO dao = null;
+	
+	public MemberUpdateService() {
+		dao  = MemberDAO.getInstance();
+	}
+
+	@Override
+	public void doService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int m_id = (Integer) request.getAttribute("m_id");
+		String m_email = (String) request.getAttribute("m_email");
+		String m_pass = (String) request.getAttribute("m_password");
+		String m_name = (String) request.getAttribute("m_name");
+		String m_phone = (String) request.getAttribute("m_phone");
+		String m_birth = (String) request.getAttribute("m_birth");
+		String m_photo = (String) request.getAttribute("m_photo");
+		String m_nick = (String) request.getAttribute("m_nick");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		
+		String m_regDate = sdf.format(cal.getTime());
+		String m_sex = (String) request.getAttribute("m_sex");
+		String m_startDate = (String) request.getAttribute("m_startDate");
+		String m_addr = (String) request.getAttribute("m_addr");
+		
+		String s_id = (String) request.getAttribute("s_id");
+		SchoolVO school = SchoolDAO.getInstance().find(s_id);
+		
+		String m_type = (String) request.getAttribute("m_type");
+		MemberTypeVO memberType = MemberTypeDAO.getInstance().find(m_type);
+		
+		MemberVO member = new MemberVO(m_id, m_email, m_name, m_pass, m_phone, m_birth, m_photo, m_nick, m_regDate, null, m_sex, m_startDate, m_addr, school, memberType);
+		
+		dao.update(member);
+	}
+}

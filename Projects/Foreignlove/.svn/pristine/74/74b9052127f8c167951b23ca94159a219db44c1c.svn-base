@@ -1,0 +1,55 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import kr.co.foreignlove.vo.MemberTypeVO;
+
+public class MemberTypeDAO {
+	private MemberTypeDAO dao = null;
+	
+	private MemberTypeDAO() {
+
+	}
+	
+	private MemberTypeDAO getInstance() {
+		if (dao == null) {
+			dao = new MemberTypeDAO();
+		}
+		return dao;
+	}
+	
+//	public boolean insert(MemberTypeVO m_type) {
+//		boolean result = false;
+//		Connection con = null;
+//		Statement stmt = null;
+//		
+//		try {
+//			con = kr.co.foreignlove.controller.DBManager.getConnection();
+//			stmt = con.createStatement();
+//			String sql = "INSERT INTO boards(email, title, content, regdate, ip) VALUES("
+//					+board.getEmail()+","+board.getTitle()+","+board.getContent()+","+board.getwDate()
+//					+","+board.getIp()+";";
+//			if (stmt.executeUpdate(sql)>0) {
+//				result = true;
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return result;
+//	}
+//	public boolean delete() {
+//		
+//	}
+//	public boolean update() {
+//		
+//	}
+//	public MemberTypeVO getMemberType() {
+//		// TODO Auto-generated method stub
+//
+//	}
+//	public ArrayList<MemberTypeVO> getList() {
+//		
+//	}
+}

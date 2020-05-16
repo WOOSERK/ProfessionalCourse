@@ -1,0 +1,152 @@
+var gPage = 1;
+
+$.fn.bindClickTag = function()
+{
+	this.click(function()
+	{
+		$.ajax(
+		{
+			url:'BoardPromotionList.do',
+			type:'get',
+			data:
+			{
+				page: gPage,
+				cond: 'p_tag',
+				word: $(this).text()
+			},
+			success: function(data)
+			{
+				$('.card').remove();
+				
+				data.boards.forEach(function(item, index)
+				{
+					let card = $('<div/>');
+					card.addClass('card');
+					card.css('width', '19%');
+					card.css('marginTop', '12px');
+					card.css('display', 'inline-block');
+					let img = $('<img/>', {src:"../images/sample1.jpg", alt:"nopic"});
+					img.addClass('card-img-top');
+					img.appendTo(card);
+					let div = $('<div/>');
+					div.addClass('card-body');
+					div.appendTo(card);
+					let h5 = $('<h5/>');
+					h5.addClass('card-title');
+					h5.text(item.b_title);
+					h5.appendTo(div);
+					let p = $('<p/>');
+					p.addClass('card-text');
+					p.text(item.b_content);
+					p.appendTo(div);
+					card.appendTo('#boardList');
+				});
+			}
+		});
+	});
+}
+
+// load list of tag
+$.fn.getTagList = function()
+{
+	$.ajax(
+	{
+		url:'TagList.do',
+		type:'get',
+		success: function(data)
+		{
+			$('#tagList').children().remove();
+			for(let i=0; i<data.tags.length; i++)
+			{
+				let tag = $('<span/>');
+				tag.addClass('badge badge-pill badge-primary');
+				tag.text(data.tags[i].t_name);
+				tag.bindClickTag();
+				tag.appendTo('#tagList');
+			}
+		}
+	});
+};
+
+$.fn.addActiveClass = function()
+{
+	$('#promotionTypeList').children().removeClass('active');
+	$(this).addClass('active');
+}
+
+$.fn.search = function()
+{
+	$.ajax(
+	{
+		url:'BoardPromotionList.do',
+		type:'get',
+		data:
+		{
+			page: gPage,
+			cond: $('#conditionBox').val(),	
+			word: $('#searchBox').val(),
+			type: $('.active').data('code') // promotionType select
+		},
+		success: function(data)
+		{
+			$('.card').remove();
+			
+			data.boards.forEach(function(item, index)
+			{
+				let card = $('<div/>');
+				card.addClass('card');
+				card.css('width', '19%');
+				card.css('marginTop', '12px');
+				card.css('display', 'inline-block');
+				let img = $('<img/>', {src:"../images/sample1.jpg", alt:"nopic"});
+				img.addClass('card-img-top');
+				img.appendTo(card);
+				let div = $('<div/>');
+				div.addClass('card-body');
+				div.appendTo(card);
+				let h5 = $('<h5/>');
+				h5.addClass('card-title');
+				h5.text(item.b_title);
+				h5.appendTo(div);
+				let p = $('<p/>');
+				p.addClass('card-text');
+				p.text(item.b_content);
+				p.appendTo(div);
+				card.data('board', item); // Save board info. for view
+				//card.data('p_type', item.p_type.p_type);
+				card.appendTo('#boardList');
+			});
+		}
+	});
+}
+
+//load list of boardPromotion 
+$.fn.bindGetList = function()
+{
+	this.click(function()
+	{
+		// activate button
+		$(this).addActiveClass();
+		
+		$(this).search();
+	});
+};
+
+// equal with bindGetList
+$.fn.bindSearch = function()
+{
+	this.click(function()
+	{
+		$(this).search();
+	});
+};
+
+$(document).ready(function()
+{
+	$('#promotionTypeList').children().bindGetList();
+	
+	$('#searchButton').bindSearch();
+	$('#searchButton').trigger('click');
+	
+	$(this).getTagList();
+});

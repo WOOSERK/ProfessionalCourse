@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ page import="kr.co.foreignlove.dao.BoardPromotionDAO"%>
+<%@ page import="kr.co.foreignlove.vo.BoardPromotionVO"%>
+<%@ page import="java.util.ArrayList"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<%ArrayList<BoardPromotionVO> list = BoardPromotionDAO.getInstance().getList(1, 10, "", "");%>
+<%for(BoardPromotionVO bp : list)
+	{
+		System.out.println(bp);
+	}%>
+</body>
+</html>

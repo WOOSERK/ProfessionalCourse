@@ -1,0 +1,97 @@
+package kr.co.foreignlove.service.boardmarket;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import kr.co.foreignlove.controller.DAOManager;
+import kr.co.foreignlove.dao.BoardMarketDAO;
+import kr.co.foreignlove.dao.BoardTypeDAO;
+import kr.co.foreignlove.dao.LowTypeDAO;
+import kr.co.foreignlove.dao.MarketTypeDAO;
+import kr.co.foreignlove.dao.TradeWayDAO;
+import kr.co.foreignlove.service.Service;
+import kr.co.foreignlove.vo.BoardMarketVO;
+import kr.co.foreignlove.vo.BoardTypeVO;
+import kr.co.foreignlove.vo.LowTypeVO;
+import kr.co.foreignlove.vo.MarketTypeVO;
+import kr.co.foreignlove.vo.MemberVO;
+import kr.co.foreignlove.vo.TradeWayVO;
+
+public class BoardMarketInsertService implements Service{
+	
+	BoardMarketDAO dao;
+	
+	public BoardMarketInsertService() {
+		dao=(BoardMarketDAO)(DAOManager.getDAO(BoardMarketDAO.NAME));
+	}
+	
+	public void doService(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		
+		String mk_title=request.getParameter("mk_title");
+		String mk_type=request.getParameter("mk_type");
+		String l_type=request.getParameter("l_type");
+		String tw_type=request.getParameter("tw_type");
+		String mk_price=request.getParameter("mk_price");
+		String mk_content=request.getParameter("mk_content");
+		
+		
+		if(mk_title==null||mk_title.trim().equals("")) {
+			throw new Exception("? ?™?˜™?’ˆ? ?™?˜™? ?™?˜™ ? ?™?˜™? ?™?˜™? ?™?˜™ ? ?™?˜™? ?™?˜™? ?™?˜™ ? ?Œ‰ë¤„ì˜™? ?™?˜™? ?Œ?‡½?˜™? ?™?˜™.");
+		}
+		
+		if(mk_price==null||mk_price.trim().equals("")) {
+			throw new Exception ("? ?™?˜™?’ˆ? ?™?˜™? ?™?˜™? ?™?˜™ ? ?Œ‰ë¤„ì˜™? ?™?˜™? ?Œ?‡½?˜™? ?™?˜™.");
+		}
+		
+		if(mk_content==null||mk_content.trim().equals("")) {
+			throw new Exception ("? ?™?˜™?’ˆ ? ?™?˜™? ?™?˜™? ?™?˜™ ? ?Œ¥?“¸?˜™? ï¿? ? ?™?˜™? ?™?˜™? ?™?˜™? ?Œ?‡½?˜™? ?™?˜™.");
+		}
+		
+		 BoardMarketVO boardMarket = new BoardMarketVO();
+		 
+		 BoardTypeVO bt = new BoardTypeVO();
+		 bt=((BoardTypeDAO)(DAOManager.getDAO(BoardTypeDAO.NAME))).getBoardTypeVO("MK");
+		 System.out.println(bt);
+		 
+		 MarketTypeVO mt = new MarketTypeVO();
+		 mt=((MarketTypeDAO)(DAOManager.getDAO(MarketTypeDAO.NAME))).find(mk_type);
+		 System.out.println(mt);
+		 
+		 LowTypeVO lt = new LowTypeVO();
+		 lt=((LowTypeDAO)(DAOManager.getDAO(LowTypeDAO.NAME))).find(l_type);
+		 System.out.println(lt);
+		 
+		 TradeWayVO tw = new TradeWayVO();
+		 tw=((TradeWayDAO)(DAOManager.getDAO(TradeWayDAO.NAME))).find(tw_type);
+		 System.out.println(tw);
+		 
+		 boardMarket.setB_title(mk_title);
+		 boardMarket.setMk_price(mk_price);
+		 boardMarket.setB_content(mk_content);
+		 boardMarket.setBoardType(bt);	
+		 boardMarket.setMarketType(mt);
+		 boardMarket.setLowType(lt);	
+		 boardMarket.setTradeWay(tw);
+
+		 MemberVO member = new MemberVO();
+		 HttpSession session = request.getSession();
+		 
+		 member=(MemberVO)session.getAttribute("loginUserInfo");
+		 
+		 boardMarket.setMember(member);
+		 
+		 System.out.println(member);
+		 
+		 if(dao.insert(boardMarket)) {
+			 request.setAttribute("boardMarket",boardMarket);
+		 }
+		 else {
+			 throw new Exception("? ?Œ‰?‹œë±„ì˜™ ? ?™?˜™?‡¼? ï¿? ? ?™?˜™? ?™?˜™? ?‹¹?š¸?˜™? ?™?˜™? ?‹¹?Œ?˜™.");
+		 }
+		
+	}
+}
+
+
+

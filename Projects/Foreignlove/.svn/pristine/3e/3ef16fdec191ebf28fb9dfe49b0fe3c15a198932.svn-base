@@ -1,0 +1,237 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <title>home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+ 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- jquery UI CDN -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <!-- 언어 별 CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/i18n/jquery.ui.datepicker-ko.min.js"></script>
+    <!-- Date 라이브러리 -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script>
+      $(function() {
+        var option = {
+          // datepicker 애니메이션 타입
+          // option 종류 : "show" , "slideDown", "fadeIn", "blind", "bounce", "clip", "drop", "fold", "slide"
+          showAnim: "blind",
+          // 해당 월의 다른 월의 날짜가 보이는 여부, 예를 들면 10월이면 전후에 9월 마지막과 11월의 시작 일이 보이는 여부입니다. 즉, 달력이 꽉 차 보이게 하는 것
+          showOtherMonths: true,
+          // 선택 여부 (showOtherMonths 옵션과 같이 일치시키지 않으면 에러가 발생합니다.)
+          selectOtherMonths: true,
+          // 달력 밑에 오늘과 닫기 버튼이 보인다.
+          showButtonPanel: true,
+          // 년 월이 셀렉트 박스로 표현 되어서 선택할 수 있다.
+          changeMonth: true,
+          changeYear: true,
+          // 한번에 보이는 개월 수
+          numberOfMonths: 1,
+                    // yearRange:30,
+          // 데이터 포멧
+          dateFormat: "yy-mm-dd",
+          // 텍스트 박스 옆의 달력 포시
+          showOn: "button",
+          //이미지 타입인지 버튼 타입인지 설정
+          buttonImageOnly: true,
+          // 이미지 경로
+          buttonImage: "https://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+          // 버튼 타입이면 버튼 값
+          buttonText: "Select date",
+          // alt 데이터 포멧
+          altFormat: "DD, d MM, yy",
+          // 선택 가능한 날짜(수 형식) - 현재 기준 -20일
+          minDate: "-30Y",
+          // 선택 가능한 최대 날짜(문자 형식) - 현재 기준 +1월 +20일
+          maxDate: "+2Y",
+          // 주 표시
+          showWeek: true
+
+        };
+
+        var dateFormat = "yyyy-mm-dd";
+
+        var optionFrom = option;
+        optionFrom.altField = "#birthday";
+        var from = $("#birth")
+          .datepicker(optionFrom)
+          .on("change", function() {
+            to.datepicker("option", "minDate", getDate(this));
+          });
+
+    // 시작일이 선택이 되면 종료일은 시작일 보다 앞을 선택할 수 없다.
+        var optionFrom = option;
+        optionFrom.altField = "#alternateFrom";
+        var from = $("#from")
+          .datepicker(optionFrom)
+          .on("change", function() {
+            to.datepicker("option", "minDate", getDate(this));
+          });
+
+        var optionTo = option;
+        optionTo.altField = "#alternateTo";
+        // 종료일이 선택이 되면 시작일은 시작일 보다 앞을 선택할 수 없다.
+        var to = $("#to")
+          .datepicker(optionTo)
+          .on("change", function() {
+            from.datepicker("option", "maxDate", getDate(this));
+          });
+
+        function getDate(element) {
+          return moment(element.value).toDate();
+        }
+      });
+    </script>
+    <style media="screen">
+      html, body{font-size: 14px;font-family: nanumgothic !important;}
+      button:hover{cursor: pointer;background-color: #c98b74 !important;}
+      img:hover{cursor: pointer;}
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid" style="margin:0; padding:0;">
+      <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:#F8B195;">
+        <a href="index.jsp" class="navbar-brand">
+        <img src="../images/logo.png" alt="nonic" width="30px"></a>
+        <ul class="navbar-nav" style="">
+          <li class="nav-item active">
+            <a href="index.jsp" class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="pages/marketBoard.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown">MARKET</a>
+            <div class="dropdown-menu">
+              <a href="pages/marketBoard.jsp" class="dropdown-item">ALL</a>
+              <a href="#" class="dropdown-item">BUY</a>
+              <a href="#" class="dropdown-item">FIND</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="pages/freeBoard.jsp" class="nav-link">FREE</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">쪽지 </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link"> </a>
+          </li>
+        </ul>
+        <form class="form-inline" action="#">
+          <input type="text" name="" value="" class="form-control" placeholder="search">
+          <button type="submit" name="searchbutton" class="btn btn-outline-light" style="backgroun-color:white">GO</button>
+        </form>
+      </nav>
+    </div>
+
+
+    <div class="container-fluid">
+       <!-- content page -->
+       <div class="row">
+         <!--LEFT-->
+         <div class="col-md-3 container-fluid">
+           <!--cate name-->
+           <div class="" style="margin-top:7px;width:100%">
+             자유게시판
+           </div>
+           <!--PROFILE-->
+           <div class="card" style="width:100%; margin-top:12px;">
+             <img src="../images/sample1.jpg" alt="nopic" class="card-img-top" style="width:100%;">
+             <div class="card-body">
+               <h5 class="card-title">창새로이</h5>
+               <p class="card-text">등급 : 태양신</p>
+               <a href="#" class="card-link">마이페이지</a><input type="checkbox" checked data-toggle="toggle" data-size="xs" >
+             </div>
+             <div class="">
+
+             </div>
+           </div>
+
+            <!--buttons-->
+            <div class="">
+              <button type="button" name="button" class="btn" style="width:100%; margin-top:5px; background-color:#F8B195;">글쓰기</button>
+              <button type="button" name="button" class="btn" style="width:100%; margin-top:5px; background-color:#F8B195;">쪽지함
+                <span class="badge badge-pill badge-danger">18</span>
+              </button>
+            </div>
+            <!--select-->
+            <div class="" style="margin-right:2%;width:77%;margin-top:5px;">
+              <select class="form-control" name="">
+                <option value="all">전체</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+              </select>
+            </div>
+            <!--search in this cate-->
+            <div class="">
+              <form class="form-inline" action="#" style="margin-top:5px;">
+                <input type="text" name="" value="" class="form-control" placeholder="search" style="margin-right:2%;width:77%;">
+                <button type="submit" name="searchbutton" class="btn" style="background-color:#F8B195;width:21%;">GO</button>
+              </form>
+            </div>
+         </div>
+
+         <!--RIGHT-->
+         <div class="col-md-9 container-fluid"  style="padding:0;margin:0;">
+          <div class="container-fluid" style="width:100%;padding:0;margin:0;" >
+
+          </div>
+          <div class="container-fluid"  style="padding:0;margin:0;">
+            <div class="container-fluid"  style="padding:12px 12px 0 0;margin:0;">
+              <img src="../images/my.png" alt="" height="20px" style="padding:0;margin-bottom:8px;">
+
+              <div class="container-fluid" style="padding:0;margin:0;">
+                <div class="container-fluid" style="padding:0;margin:0;">
+                  <!--id-->
+                  <div class="container-fluid" style="padding:0;margin:0;">
+                    <input type="text" name="" value="sonne@naver.com" class="form-control" disabled style="margin:2px 0;">
+                    <input type="password" name="" value="" class="form-control" placeholder="비밀번호" style="margin:2px 0;">
+                    <input type="password" name="" value="" class="form-control" placeholder="비밀번호 확인" style="margin:2px 0;">
+                    <input type="text" name="" value="창새로이" class="form-control" placeholder="본명" disabled style="margin:2px 0;">
+                    <input type="text" name="" value="" class="form-control" placeholder="전화번호" style="margin:2px 0;">
+                    <input type="text" name="" value="" class="form-control" placeholder="생년월일(8자)" style="margin:2px 0;">
+
+                    <input type="text" id="birth" class="form-control" placeholder="생년월일" style="width:94%; display:inline; margin:0;">
+                    <input type="text" name="" value="" class="form-control" placeholder="별명" style="margin:2px 0;">
+                    <button type="button" name="button" class="btn" style="background-color:#6C5B7B; color:white; margin:2px">중복확인</button>
+                    <input type="text" name="" value="" class="form-control" placeholder="학교" style="margin:2px 0;">
+                    <p style="margin-top:10px;">교환기간</p>
+                    <div class="container-fluid" style="padding:0;margin:0;">
+                      <input type="text" id="from" class="form-control" style="width:41%; display:inline; margin:0;"> ~
+                      <input type="text" class="form-control" id="to" style="width:41%; display:inline; margin:0;">
+                      <input type="hidden" id="birthday" class="form-control" size="30">
+                      <input type="hidden" id="alternateFrom" class="form-control" size="30">
+                      <input type="hidden" class="form-control" id="alternateTo" size="30">
+                    </div>
+                  </div>
+                  <div class="container" style="height:20px">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--bottm-->
+          <div class="container-fluid">
+            <button type="button" name="button" class="btn" style="width:10%; background-color:#F8B195; color:white; margin-top:20px;">수정완료</button>
+            <a href="../index.html">
+            <button type="button" name="button" class="btn" style="width:10%; background-color:#F8B195; color:white; margin-top:20px;">수정취소</button>
+            </a>
+          </div>
+         </div>
+       </div>
+    </div>
+  </body>
+</html>

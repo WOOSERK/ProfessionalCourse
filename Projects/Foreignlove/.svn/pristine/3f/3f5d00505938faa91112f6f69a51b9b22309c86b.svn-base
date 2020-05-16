@@ -1,0 +1,172 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.naming.NamingException;
+
+import kr.co.foreignlove.controller.DAOManager;
+import kr.co.foreignlove.controller.DBManager;
+import kr.co.foreignlove.service.BoardPromotionListService;
+import kr.co.foreignlove.vo.BoardPromotionVO;
+import kr.co.foreignlove.vo.BoardVO;
+
+public class BoardPromotionDAO implements BoardDAO
+{
+	public static final String NAME = "BoardPromotion";
+
+	@Override
+	public boolean insert(BoardVO board)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean delete(int b_id)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean update(BoardVO board)
+	{
+		return false;
+	}
+
+	@Override
+	public BoardVO getBoard(int b_id)
+	{
+		return null;
+	}
+
+	public ArrayList<BoardPromotionVO> getList(int page, int pageSize, String condition, String word, String type)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT * FROM boardPromotion ");
+		
+		System.out.println(type);
+		switch(condition)
+		{
+		case BoardPromotionListService.CONDITION_TITLE:
+			sb.append("WHERE p_title LIKE '%" + word + "%' AND p_type LIKE '%" + type + "%' ");
+			break;
+		case BoardPromotionListService.CONDITION_CONTENT:
+			sb.append("WHERE p_content LIKE '%" + word + "%' AND p_type LIKE '%" + type + "%' ");
+			break;
+		case BoardPromotionListService.CONDITION_TAG:
+			sb.append("JOIN tag_promotion_pivot USING(p_id) JOIN tag USING(t_id) WHERE t_name LIKE '%" + word + "%' ");
+			break;
+		default: 
+			sb.append("WHERE (p_title LIKE '%" + word + "%' ");
+			sb.append("OR p_content LIKE '%" + word + "%') AND p_type LIKE '%" + type + "%' ");
+			break;
+		}
+		int startPos = (page - 1) * pageSize;
+		sb.append("ORDER BY p_id DESC ");
+		sb.append("LIMIT " + startPos + ", " + pageSize);
+		
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		System.out.println(sb.toString());
+		ArrayList<BoardPromotionVO> list = new ArrayList<>();
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sb.toString());
+			
+			while(rs.next())
+			{
+				BoardPromotionVO board = new BoardPromotionVO();
+				board.setB_id(rs.getInt("p_id"));
+				board.setB_title(rs.getString("p_title"));
+				board.setB_content(rs.getString("p_content"));
+				board.setB_post(rs.getString("p_post"));
+				board.setB_delete(rs.getString("p_delete"));
+				board.setB_count(rs.getInt("p_count"));
+				board.setB_startDate(rs.getString("p_startDate"));
+				board.setB_endDate(rs.getString("p_endDate"));
+				BoardTypeDAO btDAO= (BoardTypeDAO)DAOManager.getDAO(BoardTypeDAO.NAME);
+				board.setBoardType(btDAO.getBoardTypeVO(rs.getString("bt_type")));
+				PromotionTypeDAO ptDAO = (PromotionTypeDAO)DAOManager.getDAO(PromotionTypeDAO.NAME);
+				board.setP_type(ptDAO.getType(rs.getString("p_type")));
+				MemberDAO mDAO = (MemberDAO)DAOManager.getDAO(MemberDAO.NAME);
+				board.setMember(mDAO.findMember(rs.getString("m_id")));
+				list.add(board);
+			}
+		}
+		catch(NamingException e)
+		{
+			e.printStackTrace();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+		
+		return list;
+	}
+
+	public int getTotalRecord(String condition, String word, String type)
+	{
+		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM boardPromotion ");
+		
+		switch(condition)
+		{
+		case BoardPromotionListService.CONDITION_TITLE:
+			sb.append("WHERE p_title LIKE '%" + word + "%' AND p_type LIKE '%" + type + "%' ");
+			break;
+		case BoardPromotionListService.CONDITION_CONTENT:
+			sb.append("WHERE p_content LIKE '%" + word + "%' AND p_type LIKE '%" + type + "%' ");
+			break;
+		case BoardPromotionListService.CONDITION_TAG:
+			sb.append("JOIN tag_promotion_pivot USING(p_id) JOIN tag USING(t_id) WHERE t_name LIKE '%" + word + "%' ");
+			break;
+		default: 
+			sb.append("WHERE p_title LIKE '%" + word + "%' ");
+			sb.append("OR p_content LIKE '%" + word + "%' AND p_type LIKE '%" + type + "%' ");
+			break;
+		}
+		
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		int rowCount = 0;
+		
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sb.toString());
+			if(rs.next())
+			{
+				rowCount = rs.getInt(1);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+		
+		return rowCount;
+	}
+
+	@Override
+	public int getTotalRecord(String condition, String word)
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

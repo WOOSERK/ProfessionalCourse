@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <title>Free</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <style media="screen">
+      html, body{font-size: 14px;font-family: nanumgothic !important;}
+      button:hover{cursor: pointer;background-color: #c98b74 !important;}
+    </style>
+  </head>
+
+  <body>
+    <div class="container-fluid" style="margin:0; padding:0;">
+      <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:#F8B195;">
+        <img src="../images/logo.png" alt="nonic" class="navbar-brand" width="30px">
+        <ul class="navbar-nav" style="">
+          <li class="nav-item">
+            <a href="../index.html" class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item dropdown  active">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MARKET</a>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">ALL</a>
+              <a href="#" class="dropdown-item">BUY</a>
+              <a href="#" class="dropdown-item">FIND</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">FREE</a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link"> </a>
+          </li>
+        </ul>
+        <form class="form-inline" action="#">
+          <input type="text" name="" value="" class="form-control" placeholder="search">
+          <button type="submit" name="searchbutton" class="btn btn-outline-light" style="backgroun-color:white">GO</button>
+        </form>
+      </nav>
+    </div>
+
+    <div class="container-fluid">
+       <div class="row">
+         <!--LEFT-->
+         <div class="col-md-3 container-fluid">
+           <!--PROFILE-->
+           <div class="card" style="width:100%; margin-top:12px;">
+             <img src="../images/sample1.jpg" alt="nopic" class="card-img-top" style="width:100%;">
+             <div class="card-body">
+               <h5 class="card-title">창새로이</h5>
+               <p class="card-text">등급 : 태양신</p>
+               <a href="#" class="card-link">마이페이지</a>
+             </div>
+           </div>
+
+            <!--buttons-->
+            <div class="">
+              <button type="button" name="button" class="btn" style="width:100%; margin-top:5px; background-color:#F8B195;">글쓰기</button>
+              <button type="button" name="button" class="btn" style="width:100%; margin-top:5px; background-color:#F8B195;">쪽지함
+                <span class="badge badge-pill badge-danger">18</span>
+              </button>
+            </div>
+            <!--select-->
+            <div class="" style="margin-right:2%;width:77%;margin-top:5px;">
+              <select class="form-control" name="">
+                <option value="all">전체</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+              </select>
+            </div>
+            <!--search in this cate-->
+            <div class="">
+              <form class="form-inline" action="#" style="margin-top:5px;">
+                <input type="text" name="" value="" class="form-control" placeholder="search" style="margin-right:2%;width:77%;">
+                <button type="submit" name="searchbutton" class="btn" style="background-color:#F8B195;width:21%;">GO</button>
+              </form>
+            </div>
+         </div>
+
+         <!--RIGHT-->
+         <div class="col-md-9 container-fluid"  style="padding:0;margin:0;">
+          <div class="container-fluid"  style="padding:0;margin-right:10px;">
+            <input type="text" name="" value="" placeholder="제목" style="margin:20px 0; width:50%;display:inline;" class="form-control">
+            <input type="file" name="" value="">
+            <textarea name="name" style="width:95%;" rows="19" class="form-control" placeholder="내용"></textarea>
+          </div>
+          <div class="container-fluid" style="padding:0;margin:0px;">
+            <button type="button" name="button" class="btn" style="width:10%; background-color:#F8B195; color:white; margin-top:20px;">글등록</button>
+            <a href="marketBoard.html">
+            <button type="button" name="button" class="btn" style="width:10%; background-color:#F8B195; color:white; margin-top:20px;">등록취소</button>
+            </a>
+          </div>
+         </div>
+       </div>
+    </div>
+  </body>
+</html>

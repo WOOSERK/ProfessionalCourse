@@ -1,0 +1,5 @@
+package kr.co.foreignlove.service.board.boardmarket;
+
+public class BoardMarketUpdateService {
+
+}

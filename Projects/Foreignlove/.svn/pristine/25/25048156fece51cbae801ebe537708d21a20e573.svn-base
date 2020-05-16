@@ -1,0 +1,93 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.naming.NamingException;
+
+import kr.co.foreignlove.controller.DBManager;
+import kr.co.foreignlove.vo.MemberTypeVO;
+
+public class MemberTypeDAO
+{
+	public static final String NAME = "MemberType";
+
+	public boolean insert(MemberTypeVO m_type)
+	{
+		boolean result = false;
+		Connection con = null;
+		Statement stmt = null;
+
+//		try {
+//			con = kr.co.foreignlove.controller.DBManager.getConnection();
+//			stmt = con.createStatement();
+//			String sql = "INSERT INTO boards(email, title, content, regdate, ip) VALUES("
+//					+board.getEmail()+","+board.getTitle()+","+board.getContent()+","+board.getwDate()
+//					+","+board.getIp()+";";
+//			if (stmt.executeUpdate(sql)>0) {
+//				result = true;
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+		return result;
+	}
+
+	public boolean delete()
+	{
+		boolean result = false;
+
+		return result;
+	}
+
+	public boolean update()
+	{
+		boolean result = false;
+
+		return result;
+	}
+
+	public MemberTypeVO find(String m_type)
+	{
+		MemberTypeVO type = new MemberTypeVO();
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "Select * from memberType where m_type like'" + m_type + "';";
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next())
+			{
+				type.setM_type(rs.getString("m_type"));
+				type.setM_typeName(rs.getString("m_typeName"));
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+
+		return type;
+	}
+
+	public ArrayList<MemberTypeVO> getList()
+	{
+		ArrayList<MemberTypeVO> types = new ArrayList<MemberTypeVO>();
+
+		return types;
+	}
+}

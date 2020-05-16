@@ -1,0 +1,61 @@
+package kr.co.foreignlove.controller.member;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+
+import kr.co.foreignlove.controller.BackController;
+import kr.co.foreignlove.exception.member.MemberCheckException;
+import kr.co.foreignlove.exception.member.MemberInsertException;
+import kr.co.foreignlove.service.member.MemberInsertService;
+import kr.co.foreignlove.service.member.MemberService;
+import kr.co.foreignlove.vo.MemberVO;
+
+public class MemberRegisterController implements BackController {
+	private MemberService service;
+	
+	public MemberRegisterController() {
+		service = new MemberInsertService();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		JSONObject jObj = null;
+		PrintWriter out = null;
+		
+		try
+		{
+			out = response.getWriter();
+			service.doService(request, response);
+//			System.out.println("regexcute");
+			MemberVO member = (MemberVO) request.getAttribute("member");
+//			System.out.println(member);
+			jObj = new JSONObject();
+			jObj.put("result", 0);
+			jObj.put("message", member.getM_email()+"register suceess");
+		}
+		catch (MemberCheckException e) {
+			jObj = new JSONObject();
+			jObj.put("result", e.ERRNO);
+			jObj.put("message", e.getMessage());
+		}
+		catch(MemberInsertException e)
+		{
+			jObj = new JSONObject();
+			jObj.put("result", e.ERRNO);
+			jObj.put("message", e.getMessage());
+		} catch (Exception e) {
+			jObj = new JSONObject();
+			jObj.put("result", 4);
+			jObj.put("message", e.getMessage());
+		}
+		
+		out.println(jObj.toJSONString());
+	}
+
+}

@@ -1,0 +1,20 @@
+var gPage = 1;
+
+$(document).ready(function()
+{
+	$.ajax(
+	{
+		url:'../BoardPromotionList.do',
+		type:'get',
+		data:
+		{
+			page: gPage,
+			cond: $('#conditionBox').val(),
+			word: $('#searchBox').val()
+		},
+		success: function(data)
+		{
+			
+		}
+	});
+});

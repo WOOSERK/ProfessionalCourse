@@ -1,0 +1,81 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.naming.NamingException;
+
+import kr.co.foreignlove.controller.DBManager;
+import kr.co.foreignlove.vo.TradeStepVO;
+
+public class TradeStepDAO
+{
+	public static final String NAME = "TradeStep";
+
+	public boolean insert(TradeStepVO ts_type)
+	{
+		boolean result = false;
+		Connection con = null;
+		Statement stmt = null;
+
+		return result;
+	}
+
+	public boolean delete()
+	{
+		boolean result = false;
+
+		return result;
+	}
+
+	public boolean update()
+	{
+		boolean result = false;
+
+		return result;
+	}
+
+	public TradeStepVO find(String ts_type)
+	{
+		TradeStepVO twType = new TradeStepVO();
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			String sql = "SELECT* FROM tradeStep where ts_type like'" + ts_type + "';";
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next())
+			{
+				twType.setTs_type(rs.getString("tw_type"));
+				twType.setTs_typeName(rs.getString("tw_typeName"));
+			}
+		} catch (NamingException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			DBManager.close(rs, stmt, con);
+		}
+
+		return twType;
+	}
+
+	public ArrayList<TradeStepVO> getList()
+	{
+		ArrayList<TradeStepVO> tsType = new ArrayList<TradeStepVO>();
+
+		return tsType;
+	}
+}

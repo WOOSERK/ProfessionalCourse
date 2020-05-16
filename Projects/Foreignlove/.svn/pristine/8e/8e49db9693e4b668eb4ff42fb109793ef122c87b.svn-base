@@ -1,0 +1,24 @@
+package kr.co.foreignlove.controller.boardfree;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+
+import kr.co.foreignlove.controller.BackController;
+import kr.co.foreignlove.service.Service;
+import kr.co.foreignlove.service.board.boardfree.BoardFreeDeleteService;
+
+public class BoardFreeDeleteController implements BackController {
+	Service service;
+	public BoardFreeDeleteController() {
+		service = new BoardFreeDeleteService();
+	}
+	public void execute(HttpServletRequest request, HttpServletResponse response ) {
+		JSONObject obj = null;
+		try {
+			service.doService(request, response);
+			BoardFreeVO board = request
+		}
+	}
+}

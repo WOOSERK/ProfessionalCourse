@@ -1,0 +1,55 @@
+package kr.co.foreignlove.service.boardfree;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import kr.co.foreignlove.controller.DAOManager;
+import kr.co.foreignlove.dao.BoardDAO;
+import kr.co.foreignlove.dao.BoardFreeDAO;
+import kr.co.foreignlove.dao.BoardTypeDAO;
+import kr.co.foreignlove.service.Service;
+import kr.co.foreignlove.vo.BoardFreeVO;
+import kr.co.foreignlove.vo.BoardTypeVO;
+import kr.co.foreignlove.vo.MemberVO;
+
+public class BoardFreeInsertService implements Service{
+	BoardDAO dao;
+	public BoardFreeInsertService() {
+		dao =(BoardDAO)(DAOManager.getDAO(BoardFreeDAO.NAME));
+	}
+	public void doService(HttpServletRequest request, HttpServletResponse respobnse) throws Exception{
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		if(title == null || title.trim().equals("")) {
+			throw new Exception ("제목을 입력하세요.");
+		}
+		if(content == null || content.trim().equals("")) {
+			throw new Exception ("내용을 입력하세요.");
+		}
+		BoardFreeVO board = new BoardFreeVO();
+		board.setB_title(title);
+		board.setB_content(content);
+		BoardTypeVO bt = new BoardTypeVO();		
+		bt = ((BoardTypeDAO)(DAOManager.getDAO(BoardTypeDAO.NAME))).getBoardTypeVO("FR");
+		board.setBoardType(bt);
+		MemberVO member = new MemberVO();
+		//session에 member를 넣어놨음 :
+		HttpSession session = request.getSession();
+		
+		member = (MemberVO)session.getAttribute("loginUserInfo");
+		board.setMember(member);
+		if(dao.insert(board)) {
+			request.setAttribute("board", board);
+		}
+		else {
+			throw new Exception("게시물등록에 실패하였습니다.");
+		}
+		//the reason why using session is that request cannot maintain information we have.
+		
+	}
+}

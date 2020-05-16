@@ -1,0 +1,98 @@
+$(document).ready(function() {
+	$('#emailCheck').attr("check", false);
+	$('#nickCheck').attr("check", false);
+	$('#popup').addClass('cantsee');
+	$('#popdown').addClass('cansee');
+	
+	$('#emailCheck').click(function() {
+		$.ajax({
+			url: 'FindEmail.do',
+			type: 'post',
+			data: {
+				m_email: $('input[name=m_email]').val()+'@',
+				ori_email: $('#ori_email').val()
+			},
+			success: function(data) {
+				console.log(data);
+				let obj = JSON.parse(data);
+				alert(obj.message);
+				if(obj.result == true){
+					$('#emailCheck').attr("check", true);
+				}
+				else{
+					$('#emailCheck').attr("check", false);
+				}
+				
+			}
+		});
+	});
+	
+	$('#nickCheck').click(function() {
+		$.ajax({
+			url: 'FindNick.do',
+			type: 'post',
+			data: {
+				m_nick: $('input[name=m_nick]').val()
+			},
+			success: function(data) {
+				console.log(data);
+				let obj = JSON.parse(data);
+				alert(obj.message);
+				if(obj.result == true){
+					$('#nickCheck').attr("check", true);
+				}
+				else{
+					$('#nickCheck').attr("check", false);
+				}
+				
+			}
+		});
+	});
+	
+	$('#schoolCheck').click(function() {
+		$('#popup').removeClass('cantsee');
+		$('#popdown').removeClass('cansee');
+		
+		$('#popup').addClass('cansee');
+		$('#popdown').addClass('cantsee');
+	});
+	
+	$('#schoolDone').click(function() {
+		$('#popup').removeClass('cansee');
+		$('#popdown').removeClass('cantsee');
+		
+		$('#popup').addClass('cantsee');
+		$('#popdown').addClass('cansee');
+	});
+	
+	$('#registerBtn').click(function() {
+		$.ajax({
+			url: 'Register.do',
+			type: 'post',
+			data: {
+				m_email: $('input[name=m_email]').val()+'@',
+				ori_email: $('#ori_email').val(),
+				m_pass: $('input[name=m_pass]').val(),
+				m_name: $('input[name=m_name]').val(),
+				m_phone: $('input[name=m_phone]').val(),
+				m_birth: $('#birthday').val(),
+				m_nick: $('input[name=m_nick]').val(),
+				m_school: $('input[name=school]').val(),
+				m_startDate: $('#alternateFrom').val(),
+			},
+			success: function(data) {
+				console.log(data);
+//				alert(data);
+				let obj = JSON.parse(data);
+				alert(obj.message);
+				if(obj.result == true){
+					location.href = '../index.jsp';
+				}
+				else{
+					location.href = 'login.jsp';
+				}
+				
+			}
+		});
+	});
+});

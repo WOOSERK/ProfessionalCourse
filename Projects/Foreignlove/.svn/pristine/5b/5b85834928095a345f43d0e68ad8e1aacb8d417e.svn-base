@@ -1,0 +1,107 @@
+package kr.co.foreignlove.vo;
+
+import java.util.HashMap;
+
+public class BoardMarketVO extends BoardVO{
+
+	private String mk_price;
+	private String mk_area;
+	private LowTypeVO l_type;
+	private MarketTypeVO mk_type;
+	private TradeWayVO tw_type;
+	private TradeStepVO ts_type;
+	
+	public BoardMarketVO() {}
+
+	
+	
+	public String getMk_price() {
+		return mk_price;
+	}
+
+	public void setMk_price(String mk_price) {
+		this.mk_price = mk_price;
+	}
+
+	public String getMk_area() {
+		return mk_area;
+	}
+
+	public void setMk_area(String mk_area) {
+		this.mk_area = mk_area;
+	}
+
+	public LowTypeVO getL_type() {
+		return l_type;
+	}
+
+	public void setL_type(LowTypeVO l_type) {
+		this.l_type = l_type;
+	}
+
+	public MarketTypeVO getMk_type() {
+		return mk_type;
+	}
+
+	public void setMk_type(MarketTypeVO mk_type) {
+		this.mk_type = mk_type;
+	}
+
+	public TradeWayVO getTw_type() {
+		return tw_type;
+	}
+
+	public void setTw_type(TradeWayVO tw_type) {
+		this.tw_type = tw_type;
+	}
+
+	public TradeStepVO getTs_type() {
+		return ts_type;
+	}
+
+	public void setTs_type(TradeStepVO ts_type) {
+		this.ts_type = ts_type;
+	}
+
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("{")
+		  .append("b_id : ").append(b_id).append(",")
+		  .append("b_title :").append(b_title).append(",")
+		  .append("b_content :").append(b_content).append(",")
+		  .append("b_post : ").append(b_post).append(",")
+		  .append("b_delete :").append(b_delete).append(",")
+		  .append("b_count :").append(b_count).append(",")
+		  .append("mk_price :").append(mk_price).append(",")
+		  .append("bt_type : ").append(bt_type).append(",")
+		  .append("mk_area :").append(mk_area).append(",")
+		  .append("mk_type :").append(mk_type).append(",")
+		  .append("l_type :").append(l_type).append(",")
+		  .append("tw_type :").append(tw_type).append(",")
+		  .append("ts_type :").append(ts_type).append(",")
+		  .append("}");
+		return sb.toString();
+	}
+	
+	public HashMap<String, Object>convertMap(){
+		HashMap<String, Object>map = new HashMap<>();
+		map.put("mk_id",b_id);
+		map.put("mk_title",b_title);
+		map.put("mk_content",b_content);
+		map.put("mk_post",b_post);
+		map.put("mk_delete", b_delete);
+		map.put("mk_price",mk_price);
+		map.put("mk_area",mk_area);
+		map.put("bt_type",bt_type);
+		map.put("l_type",l_type);
+		map.put("mk_type",mk_type);
+		map.put("tw_type",tw_type);
+		map.put("ts_type",ts_type);
+		return map;
+	}
+
+
+	
+	
+	
+}

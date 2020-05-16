@@ -1,0 +1,5 @@
+package kr.co.foreignlove.controller.boardfree;
+
+public class BoardFreeUpdateController {
+
+}

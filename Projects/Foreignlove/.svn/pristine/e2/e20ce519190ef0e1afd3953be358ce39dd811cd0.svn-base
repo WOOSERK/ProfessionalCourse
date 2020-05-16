@@ -1,0 +1,21 @@
+package kr.co.foreignlove.controller;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import kr.co.foreignlove.dao.BoardPromotionDAO;
+
+public class DAOCreator implements ServletContextListener
+{
+	@Override
+	public void contextInitialized(ServletContextEvent sce)
+	{
+		DAOManager.addDAO("boardPromotion", BoardPromotionDAO.getInstance());
+	}
+	
+	@Override
+	public void contextDestroyed(ServletContextEvent sce)
+	{
+		
+	}
+}

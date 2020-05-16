@@ -1,0 +1,117 @@
+package kr.co.foreignlove.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import kr.co.foreignlove.controller.DBManager;
+import kr.co.foreignlove.service.BoardPromotionListService;
+import kr.co.foreignlove.vo.BoardPromotionVO;
+import kr.co.foreignlove.vo.BoardVO;
+import kr.co.foreignlove.vo.PromotionTypeVO;
+
+public class BoardPromotionDAO implements BoardDAO
+{
+	private static BoardPromotionDAO dao;
+	
+	private BoardPromotionDAO() {}
+	
+	public static BoardPromotionDAO getInstance()
+	{
+		if(dao == null)
+		{
+			dao = new BoardPromotionDAO();
+		}
+		
+		return dao;
+	}
+
+	@Override
+	public boolean insert(BoardVO board)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean delete(int b_id)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean update(BoardVO board)
+	{
+		return false;
+	}
+
+	@Override
+	public BoardVO getBoard(int b_id)
+	{
+		return null;
+	}
+
+	@Override
+	public ArrayList<BoardVO> getList(int page, int pageSize, String condition, String word)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT * FROM boardPromotion JOIN ");
+		
+		switch(condition)
+		{
+		case BoardPromotionListService.CONDITION_TITLE:
+			sb.append("WHERE p_title LIKE '%" + word + "%' ");
+			break;
+		case BoardPromotionListService.CONDITION_CONTENT:
+			sb.append("WHERE p_content LIKE '%" + word + "%' ");
+			break;
+		case BoardPromotionListService.CONDITION_TAG:
+			sb.append("JOIN tag_promotion_pivot USING(p_id) JOIN tag USING(t_id) WHERE t_name LIKE '%" + word + "%' ");
+			break;
+		default:
+			sb.append("WHERE title LIKE '%" + word + "%' ");
+			sb.append("OR content LIKE '%" + word + "%' ");
+			break;
+		}
+		
+		int startPos = (page - 1) * pageSize;
+		sb.append("ORDER BY p_id DESC ");
+		sb.append("LIMIT " + startPos + ", " + pageSize);
+		
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<BoardVO> list = new ArrayList<>();
+		
+		try
+		{
+			con = DBManager.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sb.toString());
+			
+			while(rs.next())
+			{
+				BoardPromotionVO board = new BoardPromotionVO();
+				board.setB_id(rs.getInt("p_id"));
+				board.setB_title(rs.getString("p_title"));
+				board.setB_content(rs.getString("p_content"));
+				board.setB_post(rs.getString("p_post"));
+				board.setB_delete(rs.getString("p_delete"));
+				board.setB_count(rs.getInt("p_count"));
+				board.setB_startDate(rs.getString("p_startDate"));
+				board.setB_endDate(rs.getString("p_endDate"));
+				board.setBoardType();
+				board.setP_type();
+				board.setMember(MemberDAO.getInstance().findMember(rs.getString("m_id")));
+				
+			}
+		}
+		
+	}
+
+	@Override
+	public int getTotalRecord(String condition, String word)
+	{
+		return 0;
+	}
+}
